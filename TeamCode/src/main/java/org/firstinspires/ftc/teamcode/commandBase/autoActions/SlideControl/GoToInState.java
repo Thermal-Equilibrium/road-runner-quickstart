@@ -43,7 +43,9 @@ public class GoToInState implements action {
 			case DISARMED:
 				break;
 			case IN:
-				isComplete = true;
+				if (robot.Deposit.tolerantEnoughForDeploy()) {
+					isComplete = true;
+				}
 				break;
 			case COLLECTION:
 				break;
@@ -59,7 +61,6 @@ public class GoToInState implements action {
 				break;
 			case AT_HIGH:
 				if (timer.milliseconds() > TIME_FOR_COMPLETION) {
-					isComplete = true;
 				}
 				break;
 			case AT_MID:

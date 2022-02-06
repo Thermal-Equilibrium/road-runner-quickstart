@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.Geometry.Vector3D;
 import org.firstinspires.ftc.teamcode.commandBase.Scheduler;
 import org.firstinspires.ftc.teamcode.commandBase.action;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 import org.firstinspires.ftc.teamcode.vision.TSEContourPipeline;
 
@@ -29,6 +30,8 @@ public abstract class BaseAuto extends LinearOpMode {
 
 	public abstract void addActions();
 
+	public SampleMecanumDrive roadrunnerDrive;
+
 	@Override
 	public void runOpMode() {
 		robot = new Robot();
@@ -38,6 +41,8 @@ public abstract class BaseAuto extends LinearOpMode {
 		} else {
 			robot.initMinimal(hardwareMap);
 		}
+
+		this.roadrunnerDrive = robot.driveTrain.mecanumDrive;
 
 		this.robot.bucketSys.setCheckSensor(false);
 

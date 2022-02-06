@@ -136,8 +136,8 @@ public class Roadrunner implements subsystem {
         ).rotated(mecanumDrive.getPoseEstimate().getHeading());
         mecanumDrive.setWeightedDrivePower(new Pose2d(
                 input.getX(),
-                input.getY(),
-                powers.getAngleRadians()
+                -input.getY(),
+                -powers.getAngleRadians()
         ));
     }
 

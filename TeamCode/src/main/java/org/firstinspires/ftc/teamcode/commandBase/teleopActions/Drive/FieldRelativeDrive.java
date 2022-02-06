@@ -27,7 +27,7 @@ public class FieldRelativeDrive implements teleopAction {
 
 	@Override
 	public void periodic() {
-		robot.driveTrain.fieldRelative(getMotorPowers(),robot.getRobotPose());
+		robot.driveTrain.fieldRelative(getMotorPowers());
 	}
 
 	@Override
