@@ -37,7 +37,7 @@ public class Robot {
     public TapeTurret turret = new TapeTurret();
 
     public DistanceSensorLocalization distanceSensorLocalization
-            = new DistanceSensorLocalization(odometry);
+            = new DistanceSensorLocalization(driveTrain);
 
     public Robot() {
 
@@ -104,10 +104,10 @@ public class Robot {
      * @return drivetrain position
      */
     public Vector3D getRobotPose() {
-        return odometry.subsystemState();
+        return driveTrain.subsystemState();
     }
     public void setRobotPose(Vector3D pose) {
-        odometry.setPositionEstimate(pose);
+        driveTrain.setPositionEstimate(pose);
     }
 
     /**
@@ -121,4 +121,7 @@ public class Robot {
     public Vector3D getVelocity() {
         return new Vector3D(0,0,0);
     }
+
+
+
 }

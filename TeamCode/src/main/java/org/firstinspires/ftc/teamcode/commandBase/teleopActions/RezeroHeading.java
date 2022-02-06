@@ -26,7 +26,7 @@ public class RezeroHeading implements teleopAction {
 	@Override
 	public void periodic() {
 		if (gamepad1.circle) {
-			robot.odometry.setPositionEstimate(new Vector3D(0,0,Math.toRadians(0)));
+			robot.setRobotPose(new Vector3D(0,0,Math.toRadians(0)));
 		}
 	}
 

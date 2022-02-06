@@ -50,7 +50,7 @@ public class RedCycleNew extends BaseAuto {
 
 	@Override
 	public void setStartingPosition() {
-		robot.odometry.setPositionEstimate(start);
+		robot.setRobotPose(start);
 	}
 
 	@Override

@@ -206,4 +206,8 @@ public class utils {
         return new Vector3D(pose2d.getX(), pose2d.getY(), pose2d.getHeading());
     }
 
+    public static Pose2d toPose2D(Vector3D vector3d) {
+        return new Pose2d(vector3d.getX(), vector3d.getY(), vector3d.getAngleRadians());
+    }
+
 }

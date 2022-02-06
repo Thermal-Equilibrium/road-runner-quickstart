@@ -9,11 +9,14 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Geometry.Vector3D;
+import org.firstinspires.ftc.teamcode.Utils.PoseStorage;
 import org.firstinspires.ftc.teamcode.Utils.utils;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 import homeostasis.systems.DcMotorPlant;
 
+import static org.firstinspires.ftc.teamcode.Utils.utils.fromPose2D;
+import static org.firstinspires.ftc.teamcode.Utils.utils.toPose2D;
 import static org.firstinspires.ftc.teamcode.subsystems.Robot.isCompBot;
 
 
@@ -77,6 +80,7 @@ public class Roadrunner implements subsystem {
     public void update() {
 
         mecanumDrive.update();
+        PoseStorage.pose = fromPose2D(mecanumDrive.getPoseEstimate());
 
     }
 
@@ -125,15 +129,46 @@ public class Roadrunner implements subsystem {
         robotRelative(new Vector3D(rotatedPowers.getX(),rotatedPowers.getY(),powers.getAngleRadians()));
     }
 
+    public void fieldRelative(Vector3D powers) {
+        Vector2d input = new Vector2d(
+                powers.getX(),
+                powers.getY()
+        ).rotated(mecanumDrive.getPoseEstimate().getHeading());
+        mecanumDrive.setWeightedDrivePower(new Pose2d(
+                input.getX(),
+                input.getY(),
+                powers.getAngleRadians()
+        ));
+    }
+
     public void STOP() {
         mecanumDrive.setWeightedDrivePower(new Pose2d(0,0,0));
     }
 
     @Override
     public Vector3D subsystemState() {
-        return utils.fromPose2D(mecanumDrive.getPoseEstimate());
+        return fromPose2D(mecanumDrive.getPoseEstimate());
     }
 
+    public void setPositionEstimate(Vector3D pose) {
+        this.mecanumDrive.setPoseEstimate(toPose2D(pose));
+    }
+    public void setPositionEstimate(Pose2d pose) {
+        this.mecanumDrive.setPoseEstimate(pose);
+    }
 
+    public Pose2d getPoseVelocity() {
+       return this.mecanumDrive.getPoseVelocity();
+    }
 
+    public void setXPose(double x) {
+        Pose2d currentEstimate = mecanumDrive.getPoseEstimate();
+        Pose2d newEstimate = new Pose2d(x,currentEstimate.getY(), currentEstimate.getHeading());
+        setPositionEstimate(newEstimate);
+    }
+    public void setYPose(double y) {
+        Pose2d currentEstimate = mecanumDrive.getPoseEstimate();
+        Pose2d newEstimate = new Pose2d(currentEstimate.getX(),y, currentEstimate.getHeading());
+        setPositionEstimate(newEstimate);
+    }
 }

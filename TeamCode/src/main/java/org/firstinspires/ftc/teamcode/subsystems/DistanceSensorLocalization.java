@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import homeostasis.Filters.SISOKalmanFilter;
 
 import static org.firstinspires.ftc.teamcode.Utils.utils.AngleWrap;
+import static org.firstinspires.ftc.teamcode.Utils.utils.fromPose2D;
 
 @Config
 public class DistanceSensorLocalization implements subsystem{
@@ -42,7 +43,7 @@ public class DistanceSensorLocalization implements subsystem{
 	public double rightDistance = 0;
 	public double rearDistance = 0;
 
-	ThreeWheelOdometry odom;
+	Roadrunner odom;
 
 	ArrayList<Vector3D> previousVectors = new ArrayList<>();
 	double Q = 8;
@@ -55,7 +56,7 @@ public class DistanceSensorLocalization implements subsystem{
 	SISOKalmanFilter estimatorX = new SISOKalmanFilter(Q,R);
 	SISOKalmanFilter estimatorY = new SISOKalmanFilter(Q,R);
 
-	public DistanceSensorLocalization(ThreeWheelOdometry odom) {
+	public DistanceSensorLocalization(Roadrunner odom) {
 		this.odom = odom;
 	}
 
@@ -106,7 +107,7 @@ public class DistanceSensorLocalization implements subsystem{
 	@RequiresApi(api = Build.VERSION_CODES.N)
 	public void calculatePositions() {
 		System.out.println("current time for scheduling is " + timer.milliseconds());
-		double velocityMagnitude = odom.getVelocity().distanceToPose(new Vector3D());
+		double velocityMagnitude = fromPose2D(odom.getPoseVelocity()).distanceToPose(new Vector3D());
 		Dashboard.packet.put("velocity magnitude", velocityMagnitude);
 		Vector3D robotPose = odom.subsystemState();
 		boolean angleOutOfRange = Math.abs(AngleWrap(robotPose.getAngleRadians())) > maximumAngle;

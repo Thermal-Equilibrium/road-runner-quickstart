@@ -52,7 +52,7 @@ public class Turn implements action {
 
 	@Override
 	public void runAction() {
-		double output = pid.calculateLinearAngle(robot.odometry.subsystemState().getAngleRadians());
+		double output = pid.calculateLinearAngle(robot.getRobotPose().getAngleRadians());
 		robot.driveTrain.robotRelative(0,0, output);
 		Dashboard.packet.put("power",output);
 		Dashboard.packet.put("error",pid.getError());
