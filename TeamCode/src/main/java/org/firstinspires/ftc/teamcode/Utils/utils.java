@@ -202,4 +202,8 @@ public class utils {
         }
     }
 
+    public static Vector3D fromPose2D(Pose2d pose2d) {
+        return new Vector3D(pose2d.getX(), pose2d.getY(), pose2d.getHeading());
+    }
+
 }

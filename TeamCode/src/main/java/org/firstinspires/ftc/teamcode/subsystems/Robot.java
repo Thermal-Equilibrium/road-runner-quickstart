@@ -24,7 +24,7 @@ public class Robot {
 
     public Deposit Deposit = new Deposit();
 
-    public Drivetrain driveTrain = new Drivetrain(batterVoltageSensor);
+    public Roadrunner driveTrain = new Roadrunner(batterVoltageSensor);
 
     public Bucket bucketSys = new Bucket();
 
@@ -33,7 +33,6 @@ public class Robot {
     public DuckDetection duckDetection = new DuckDetection(dashBoard);
 
     public DuckWheel duckwheel = new DuckWheel();
-    public ThreeWheelOdometry odometry = new ThreeWheelOdometry();
 
     public TapeTurret turret = new TapeTurret();
 
@@ -56,10 +55,8 @@ public class Robot {
         batterVoltageSensor = hwmap.voltageSensor.iterator().next();
         driveTrain.init(hwmap);
         dashBoard.init(hwmap);
-        odometry.init(hwmap);
         subsystems.add(driveTrain);
         subsystems.add(dashBoard);
-        subsystems.add(odometry);
     }
 
     /**
@@ -93,14 +90,12 @@ public class Robot {
     public void initWithoutReset(HardwareMap hwmap) {
         driveTrain.initNoReset(hwmap);
         dashBoard.initNoReset(hwmap);
-        odometry.initNoReset(hwmap);
         Intake.initNoReset(hwmap);
         Deposit.initNoReset(hwmap);
         subsystems.add(Intake);
         subsystems.add(Deposit);
         subsystems.add(driveTrain);
         subsystems.add(dashBoard);
-        subsystems.add(odometry);
     }
 
     /**
@@ -124,6 +119,6 @@ public class Robot {
 
 
     public Vector3D getVelocity() {
-        return odometry.getVelocity();
+        return new Vector3D(0,0,0);
     }
 }
