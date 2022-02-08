@@ -27,8 +27,8 @@ public class Slides implements subsystem {
 	protected double IN = 0;
 	protected double COLLECTION = 0;
 	protected double LOW = 60;
-	protected double MID = 90;
-	protected double HIGH = 200; // tune this imo
+	protected double MID = 100;
+	protected double HIGH = 240; // tune this imo
 
 	protected double referencePosition = 0;
 
@@ -51,8 +51,8 @@ public class Slides implements subsystem {
 		right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 		ArrayList<DcMotorEx> motors = new ArrayList<>();
-		motors.add(left);
 		motors.add(right);
+		motors.add(left);
 		slides = new DcMotorPlant(motors);
 		slideController.setLimitIntegralSum(false);
 	}
@@ -101,6 +101,7 @@ public class Slides implements subsystem {
 		System.out.println("slide controller error is " + error + " slide controller setpoint is " + slideController.getReference());
 		System.out.println("slide power " + controllerCommand);
 		Dashboard.packet.put("SlidePower",controllerCommand);
+		Dashboard.packet.put("slide error", error);
 	}
 
 	public double getControllerError() {

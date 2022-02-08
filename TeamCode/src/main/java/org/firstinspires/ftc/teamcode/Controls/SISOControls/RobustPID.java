@@ -261,11 +261,12 @@ public class RobustPID {
 	public void antiWindup() {
 
 
+
+
+		if (!limitIntegralSum) return;
 		if ((lastError > 0 && error < 0) || ((lastError < 0 && error > 0))) {
 			integral_sum = 0;
 		}
-
-		if (!limitIntegralSum) return;
 		if (integral_sum > 1) integral_sum = 1;
 		if (integral_sum < -1) integral_sum = -1;
 

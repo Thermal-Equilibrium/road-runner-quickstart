@@ -10,7 +10,7 @@ public class controllerCoefficients {
 	public static final PIDFCoefficients protoBotTurn = new PIDFCoefficients(0.59, 0.16, 0.09, 0, 0, 0.0580);
 
 	// controller coefficients for linear slide subsystem
-	public static final PIDFCoefficients slideCoefficients = new PIDFCoefficients(0.005, 0.005, 0);
+	public static final PIDFCoefficients slideCoefficients = new PIDFCoefficients(0.01, 0.01, 0,0,0,0.1);
 
 
 
