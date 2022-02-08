@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Geometry.Vector3D;
 import org.firstinspires.ftc.teamcode.commandBase.action;
+import org.firstinspires.ftc.teamcode.commandBase.autoActions.DrivetrainControl.DriveToPosition;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.DrivetrainControl.FollowTrajectory;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.Intake.DeployIntake;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.Intake.TurnOffIntake;
@@ -16,6 +17,8 @@ import org.firstinspires.ftc.teamcode.commandBase.autoActions.Misc.MutlipleActio
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.DepositFreight;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.GoToHighDeposit;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.GoToInState;
+import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.GoToMidDeposit;
+import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.NoSlideDeposit;
 import org.firstinspires.ftc.teamcode.templateOpModes.BaseAuto;
 
 
@@ -78,14 +81,42 @@ public class RedCycleRR extends BaseAuto {
 
 	@Override
 	public void addActions() {
-		actions.add(new MutlipleAction(
-				new action[] {
-						new FollowTrajectory(robot, goToDeposit1),
-						new GoToHighDeposit(robot)
-				}
-		));
-		actions.add(new DeployIntake(robot));
-		actions.add(new DepositFreight(robot));
+
+
+
+		switch (TSEPosition) {
+
+			case LEFT:
+				actions.add(new MutlipleAction(
+						new action[] {
+								new FollowTrajectory(robot, goToDeposit1),
+						}
+				));
+				actions.add(new NoSlideDeposit(robot));
+				break;
+
+			case MIDDLE:
+				actions.add(new MutlipleAction(
+						new action[] {
+								new FollowTrajectory(robot, goToDeposit1),
+								new GoToMidDeposit(robot)
+						}
+				));
+				actions.add(new DepositFreight(robot));
+				break;
+
+			case RIGHT:
+				actions.add(new MutlipleAction(
+						new action[] {
+								new FollowTrajectory(robot, goToDeposit1),
+								new GoToHighDeposit(robot)
+						}
+				));
+				actions.add(new DepositFreight(robot));
+				break;
+		}
+
+			actions.add(new DeployIntake(robot));
 
 		for (int i = 0; i < 2; i++) {
 			//agaisnt wall slides in
@@ -110,23 +141,22 @@ public class RedCycleRR extends BaseAuto {
 			actions.add(new MutlipleAction(new action[] {
 							new FollowTrajectory(robot, goToDepositCycle),
 							new GoToHighDeposit(robot)
-					}
-			));
+			}));
 			actions.add(new DepositFreight(robot));
 		}
-		//agaisnt wall
-		actions.add(new MutlipleAction(new action[]{
-				new FollowTrajectory(robot, goToIntake),
-				new GoToInState(robot)
-		}));
-		//parks
-		actions.add(new MutlipleAction(new action[] {
-				new FollowTrajectory(robot, goToIntake2),
-				new TurnOnIntake(robot, true )
-		}));
+			//agaisnt wall
+			actions.add(new MutlipleAction(new action[]{
+					new FollowTrajectory(robot, goToIntake),
+					new GoToInState(robot)
+			}));
+			//parks
+			actions.add(new MutlipleAction(new action[] {
+					new FollowTrajectory(robot, goToIntake2),
+					new TurnOnIntake(robot, true )
+			}));
 
-		actions.add(new Delay(500));
-		actions.add(new TurnOffIntake(robot));
+			actions.add(new Delay(500));
+			actions.add(new TurnOffIntake(robot));
 
 	}
 }
