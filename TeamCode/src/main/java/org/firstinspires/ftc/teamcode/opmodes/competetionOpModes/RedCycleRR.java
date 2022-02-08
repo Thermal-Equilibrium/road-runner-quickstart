@@ -28,6 +28,12 @@ public class RedCycleRR extends BaseAuto {
 	Pose2d depositPosition = new Pose2d(+ 2,-TILE * 2 + 4 ,Math.toRadians(-60));
 	double depositTangent = Math.toRadians(120);
 
+	Pose2d depositPositionMid = new Pose2d(+ 2,-TILE * 2 + 4 ,Math.toRadians(-60));
+	double depositTangentMid = Math.toRadians(120);
+
+	Pose2d depositPositionLow = new Pose2d(-10,-TILE * 2 + 6.5 ,Math.toRadians(-80));
+	double depositTangentLow = Math.toRadians(120);
+
 	Pose2d intakePosition1 = new Pose2d(10, -TILE * 3 + 7.375,0);
 	double intakePosition1Tangent = Math.toRadians(330);
 
@@ -45,17 +51,34 @@ public class RedCycleRR extends BaseAuto {
 	double intakePosition4Tangent = Math.toRadians(0);
 
 	Trajectory goToDeposit1;
+	Trajectory goToDepositHigh;
+	Trajectory goToDepositMid;
+	Trajectory goToDepositLow;
+
 	Trajectory goToIntake;
 	Trajectory goToIntake2;
 
 	Trajectory exitWareHouse;
 	Trajectory goToDepositCycle;
 
+
 	@Override
 	public void setStartingPosition() {
 		robot.setRobotPose(start);
 		goToDeposit1 = roadrunnerDrive.trajectoryBuilder(start.toPose2d(), true)
 				.splineToLinearHeading(depositPosition, depositTangent)
+				.build();
+
+		goToDepositHigh = roadrunnerDrive.trajectoryBuilder(start.toPose2d(), true)
+				.splineToLinearHeading(depositPosition, depositTangent)
+				.build();
+
+		goToDepositMid = roadrunnerDrive.trajectoryBuilder(start.toPose2d(), true)
+				.splineToLinearHeading(depositPositionMid, depositTangentMid)
+				.build();
+
+		goToDepositLow = roadrunnerDrive.trajectoryBuilder(start.toPose2d(), true)
+				.splineToLinearHeading(depositPositionLow, depositTangentLow)
 				.build();
 
 		goToIntake = roadrunnerDrive.trajectoryBuilder(goToDeposit1.end(),false)
@@ -89,7 +112,7 @@ public class RedCycleRR extends BaseAuto {
 			case LEFT:
 				actions.add(new MutlipleAction(
 						new action[] {
-								new FollowTrajectory(robot, goToDeposit1),
+								new FollowTrajectory(robot, goToDepositLow),
 						}
 				));
 				actions.add(new NoSlideDeposit(robot));
@@ -98,7 +121,7 @@ public class RedCycleRR extends BaseAuto {
 			case MIDDLE:
 				actions.add(new MutlipleAction(
 						new action[] {
-								new FollowTrajectory(robot, goToDeposit1),
+								new FollowTrajectory(robot, goToDepositMid),
 								new GoToMidDeposit(robot)
 						}
 				));
@@ -108,7 +131,7 @@ public class RedCycleRR extends BaseAuto {
 			case RIGHT:
 				actions.add(new MutlipleAction(
 						new action[] {
-								new FollowTrajectory(robot, goToDeposit1),
+								new FollowTrajectory(robot, goToDepositHigh),
 								new GoToHighDeposit(robot)
 						}
 				));
@@ -129,7 +152,6 @@ public class RedCycleRR extends BaseAuto {
 					new FollowTrajectory(robot, goToIntake2),
 					new TurnOnIntake(robot, true ),
 					new Delay(1500)
-
 			}));
 			//leaves warehouse outakes
 			actions.add(new MutlipleAction(new action[]{
@@ -154,7 +176,7 @@ public class RedCycleRR extends BaseAuto {
 					new FollowTrajectory(robot, goToIntake2),
 					new TurnOnIntake(robot, true )
 			}));
-
+			//Turns off intake
 			actions.add(new Delay(500));
 			actions.add(new TurnOffIntake(robot));
 

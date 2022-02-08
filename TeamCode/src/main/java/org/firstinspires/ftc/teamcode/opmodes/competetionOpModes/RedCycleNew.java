@@ -26,7 +26,7 @@ public class RedCycleNew extends BaseAuto {
 
 	Vector3D depositPosition1HIGH = new Vector3D(+ 2,-TILE * 2 + 4 ,Math.toRadians(-60));
 	Vector3D depositPosition1MID  = new Vector3D(+ 2,-TILE * 2 + 2 ,Math.toRadians(-60));
-	Vector3D depositPosition1LOW  = new Vector3D(+ -3,-TILE * 2 + 8 ,Math.toRadians(-60));
+	Vector3D depositPosition1LOW  = new Vector3D( -3,-TILE * 2 + 8 ,Math.toRadians(-60));
 
 	Vector3D depositPosition1 = new Vector3D(+ .5,-TILE * 2 + 8 ,Math.toRadians(-50));
 	Vector3D depositPosition2 = new Vector3D(+ .5,-TILE * 2 + 8 ,Math.toRadians(-60));
