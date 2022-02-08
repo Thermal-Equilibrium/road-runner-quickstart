@@ -260,7 +260,9 @@ public class RobustPID {
 
 	public void antiWindup() {
 
-
+		if (Math.signum(error) != Math.signum(integral_sum)) {
+			integral_sum = 0;
+		}
 
 
 		if (!limitIntegralSum) return;
