@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.commandBase.autoActions.DrivetrainControl.
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.Intake.DeployIntake;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.Intake.TurnOffIntake;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.Intake.TurnOnIntake;
+import org.firstinspires.ftc.teamcode.commandBase.autoActions.Misc.Delay;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.Misc.MutlipleAction;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.DepositFreight;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.GoToHighDeposit;
@@ -87,25 +88,25 @@ public class RedCycleRR extends BaseAuto {
 		actions.add(new DepositFreight(robot));
 
 		for (int i = 0; i < 2; i++) {
-
+			//agaisnt wall slides in
 			actions.add(new MutlipleAction(new action[]{
 					new FollowTrajectory(robot, goToIntake),
 					new GoToInState(robot)
 			}));
+			//in warehouse intake on
 			actions.add(new MutlipleAction(new action[] {
 					new FollowTrajectory(robot, goToIntake2),
-					new TurnOnIntake(robot, true )
+					new TurnOnIntake(robot, true ),
+					new Delay(1500)
 
 			}));
-
+			//leaves warehouse outakes
 			actions.add(new MutlipleAction(new action[]{
 					new FollowTrajectory(robot, exitWareHouse),
 					new TurnOnIntake(robot, false )
 			}));
-
-
 			actions.add(new TurnOffIntake(robot));
-
+			//goes high position and deposit position
 			actions.add(new MutlipleAction(new action[] {
 							new FollowTrajectory(robot, goToDepositCycle),
 							new GoToHighDeposit(robot)
@@ -113,16 +114,19 @@ public class RedCycleRR extends BaseAuto {
 			));
 			actions.add(new DepositFreight(robot));
 		}
+		//agaisnt wall
 		actions.add(new MutlipleAction(new action[]{
 				new FollowTrajectory(robot, goToIntake),
 				new GoToInState(robot)
 		}));
+		//parks
 		actions.add(new MutlipleAction(new action[] {
 				new FollowTrajectory(robot, goToIntake2),
 				new TurnOnIntake(robot, true )
 		}));
 
-
+		actions.add(new Delay(500));
+		actions.add(new TurnOffIntake(robot));
 
 	}
 }
