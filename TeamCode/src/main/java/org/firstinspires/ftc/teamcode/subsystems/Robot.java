@@ -7,7 +7,6 @@ import org.firstinspires.ftc.teamcode.Geometry.Vector3D;
 import org.firstinspires.ftc.teamcode.subsystems.scoringMechanisms.Bucket;
 import org.firstinspires.ftc.teamcode.subsystems.scoringMechanisms.Deposit;
 import org.firstinspires.ftc.teamcode.subsystems.scoringMechanisms.Intake;
-import org.firstinspires.ftc.teamcode.subsystems.scoringMechanisms.TapeTurret;
 
 import java.util.ArrayList;
 
