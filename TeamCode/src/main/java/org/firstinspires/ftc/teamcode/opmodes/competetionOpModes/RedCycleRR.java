@@ -166,17 +166,21 @@ public class RedCycleRR extends BaseAuto {
 			}));
 			actions.add(new TurnOffIntake(robot));
 			//goes high position and deposit position
+
 			actions.add(new MutlipleAction(new action[] {
 							new FollowTrajectory(robot, goToDepositCycle),
 							new GoToHighDeposit(robot)
 			}));
+
 			actions.add(new DepositFreight(robot));
 			actions.add(new Delay(350));
 			//agaisnt wall slides in
+
 			actions.add(new MutlipleAction(new action[]{
 					new FollowTrajectory(robot, goToIntake),
 					new GoToInState(robot)
 			}));
+
 			//in warehouse intake on
 			actions.add(new MutlipleAction(new action[] {
 					new FollowTrajectory(robot, goToIntake2),
