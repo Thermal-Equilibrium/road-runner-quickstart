@@ -69,7 +69,7 @@ public class GoToHighDeposit implements action {
 			case AT_HIGH:
 			case AT_MID:
 			case AT_LOW:
-				if (timer.milliseconds() > TIME_FOR_COMPLETION && robot.Deposit.isSlideWithinTolerance()) {
+				if (timer.milliseconds() > TIME_FOR_COMPLETION) {
 					isComplete = true;
 				}
 				break;
