@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.teamcode.Controls.Coefficients.controllerCoefficients;
 import org.firstinspires.ftc.teamcode.Controls.SISOControls.RobustPID;
 import org.firstinspires.ftc.teamcode.subsystems.Dashboard;
@@ -105,6 +106,7 @@ public class Slides implements subsystem {
 		error = slideController.getError();
 		System.out.println("slide controller error is " + error + " slide controller setpoint is " + slideController.getReference());
 		System.out.println("slide power " + controllerCommand);
+		Dashboard.packet.put("Current",left.getCurrent(CurrentUnit.AMPS) + right.getCurrent(CurrentUnit.AMPS));
 		Dashboard.packet.put("SlidePower",controllerCommand);
 		Dashboard.packet.put("slide error", error);
 	}
