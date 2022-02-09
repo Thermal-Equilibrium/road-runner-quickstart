@@ -154,7 +154,7 @@ public class RedCycleRR extends BaseAuto {
 			actions.add(new MutlipleAction(new action[] {
 					new FollowTrajectory(robot, goToIntake2),
 					new TurnOnIntake(robot, true ),
-					new Delay(1500)
+					new Delay(2500)
 			}));
 			//leaves warehouse outakes
 			actions.add(new MutlipleAction(new action[]{
@@ -168,7 +168,9 @@ public class RedCycleRR extends BaseAuto {
 							new GoToHighDeposit(robot)
 			}));
 			actions.add(new DepositFreight(robot));
+			actions.add(new Delay(350));
 		}
+
 			//agaisnt wall
 			actions.add(new MutlipleAction(new action[]{
 					new FollowTrajectory(robot, goToIntake),
