@@ -105,6 +105,9 @@ public class RedCycleRR extends BaseAuto {
 	@Override
 	public void addActions() {
 
+		// this makes sure the robot starts with the bucket all the way out instead of flipping back
+		actions.add(new NoSlideDeposit(robot));
+
 
 
 		switch (TSEPosition) {

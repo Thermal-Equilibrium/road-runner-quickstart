@@ -34,7 +34,6 @@ public class Robot {
 
     public DuckWheel duckwheel = new DuckWheel();
 
-    public TapeTurret turret = new TapeTurret();
 
     public DistanceSensorLocalization distanceSensorLocalization
             = new DistanceSensorLocalization(driveTrain);
