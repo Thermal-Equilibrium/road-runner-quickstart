@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.teamcode.Controls.Coefficients.controllerCoefficients;
 import org.firstinspires.ftc.teamcode.Controls.SISOControls.RobustPID;
@@ -16,6 +17,8 @@ import homeostasis.systems.DcMotorPlant;
 import homeostasis.utils.State;
 
 public class Slides implements subsystem {
+
+	VoltageSensor batterVoltageSensor;
 
 	protected RobustPID slideController = new RobustPID(controllerCoefficients.slideCoefficients, 0, 5, 3, 2);
 	protected DcMotorPlant slides;
@@ -44,6 +47,7 @@ public class Slides implements subsystem {
 	public void initNoReset(HardwareMap hwmap) {
 		left = hwmap.get(DcMotorEx.class, "slideLeft");
 		right = hwmap.get(DcMotorEx.class, "slideRight");
+		batterVoltageSensor = hwmap.voltageSensor.iterator().next();
 
 		right.setDirection(DcMotorSimple.Direction.FORWARD);
 		left.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -95,6 +99,7 @@ public class Slides implements subsystem {
 
 		}
 		System.out.println("slide reference position is " + referencePosition);
+		slideController.setScaling(14 / batterVoltageSensor.getVoltage());
 		double controllerCommand = slideController.stateReferenceCalculate(referencePosition, subsystemState().getPosition());
 		slides.input(controllerCommand);
 		error = slideController.getError();

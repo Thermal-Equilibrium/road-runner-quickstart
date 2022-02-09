@@ -49,6 +49,8 @@ public class RobustPID {
 	protected double previous_feedback = 0;
 	protected boolean limitIntegralSum = true;
 
+	protected double scaling = 1;
+
 	/**
 	 * construct PID with buffer length and stability threshold
 	 *
@@ -82,6 +84,10 @@ public class RobustPID {
 
 	}
 
+	public void setScaling(double scaling) {
+		this.scaling = scaling;
+	}
+
 	/**
 	 * perform general PID calculations and operations
 	 */
@@ -92,7 +98,7 @@ public class RobustPID {
 		double out1 = (error * coefficients.Kp) + (integral_sum * coefficients.Ki);
 
 		if (Math.abs(out1) < coefficients.H && Math.abs(error) > EPSILON) {
-			out1 = coefficients.H * Math.signum(out1);
+			out1 = coefficients.H * Math.signum(out1) * scaling;
 		}
 
 		output = out1 +
