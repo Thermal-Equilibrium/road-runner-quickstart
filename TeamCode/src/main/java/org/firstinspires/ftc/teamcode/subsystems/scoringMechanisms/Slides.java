@@ -30,8 +30,8 @@ public class Slides implements subsystem {
 	protected double IN = 0;
 	protected double COLLECTION = 0;
 	protected double LOW = 60;
-	protected double MID = 104;
-	protected double HIGH = 240; // tune this imo
+	protected double MID = 120;
+	protected double HIGH = 260; // tune this imo
 
 	protected double referencePosition = 0;
 

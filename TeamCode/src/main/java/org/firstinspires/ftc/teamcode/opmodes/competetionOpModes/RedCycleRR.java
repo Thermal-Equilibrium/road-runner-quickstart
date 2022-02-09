@@ -28,10 +28,10 @@ public class RedCycleRR extends BaseAuto {
 	Pose2d depositPosition = new Pose2d(+ 2,-TILE * 2 + 4 ,Math.toRadians(-60));
 	double depositTangent = Math.toRadians(120);
 
-	Pose2d depositPositionMid = new Pose2d(+ 2,-TILE * 2 + 4 ,Math.toRadians(-60));
+	Pose2d depositPositionMid = new Pose2d(+ 2,-TILE * 2 + 5 ,Math.toRadians(-60));
 	double depositTangentMid = Math.toRadians(120);
 
-	Pose2d depositPositionLow = new Pose2d(-10,-TILE * 2 + 6.5 ,Math.toRadians(-80));
+	Pose2d depositPositionLow = new Pose2d(-8,-TILE * 2 + 5,Math.toRadians(-85));
 	double depositTangentLow = Math.toRadians(120);
 
 	Pose2d intakePosition1 = new Pose2d(10, -TILE * 3 + 7.375,0);
@@ -119,6 +119,8 @@ public class RedCycleRR extends BaseAuto {
 						}
 				));
 				actions.add(new NoSlideDeposit(robot));
+				actions.add(new DepositFreight(robot));
+				actions.add(new Delay(500));
 				break;
 
 			case MIDDLE:
@@ -129,6 +131,7 @@ public class RedCycleRR extends BaseAuto {
 						}
 				));
 				actions.add(new DepositFreight(robot));
+				actions.add(new Delay(250));
 				break;
 
 			case RIGHT:
@@ -139,6 +142,7 @@ public class RedCycleRR extends BaseAuto {
 						}
 				));
 				actions.add(new DepositFreight(robot));
+				actions.add(new Delay(250));
 				break;
 		}
 
