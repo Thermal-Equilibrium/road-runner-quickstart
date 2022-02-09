@@ -17,13 +17,13 @@ public class RedDuckAutoRR extends BaseAuto {
 	Pose2d startPosition = new Pose2d(-TILE * 1.5, -TILE * 3 + 8.375,  Math.toRadians(-90));
 
 	Pose2d depositPose = new Pose2d(-TILE, -2 * TILE, Math.toRadians(60 + 180));
-	double depositTangent = Math.toRadians(30);
+	double depositTangent = Math.toRadians(30.0);
 
 	Pose2d carouselPose = new Pose2d(-TILE * 2, -TILE * 3 + 12, Math.toRadians(180));
-	double carouselTangent = Math.toRadians(180);
+	double carouselTangent = Math.toRadians(180.0);
 
 	Pose2d park = new Pose2d(-TILE * 2.5, -TILE * 1.5,Math.toRadians(0));
-	double parkTangent = Math.toRadians(180);
+	double parkTangent = Math.toRadians(180.0);
 
 	Trajectory goToDeposit;
 	Trajectory goToCarousel;
