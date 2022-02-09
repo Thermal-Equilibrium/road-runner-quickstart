@@ -144,7 +144,6 @@ public class RedCycleRR extends BaseAuto {
 
 			actions.add(new DeployIntake(robot));
 
-		for (int i = 0; i < 2; i++) {
 			//agaisnt wall slides in
 			actions.add(new MutlipleAction(new action[]{
 					new FollowTrajectory(robot, goToIntake),
@@ -169,7 +168,30 @@ public class RedCycleRR extends BaseAuto {
 			}));
 			actions.add(new DepositFreight(robot));
 			actions.add(new Delay(350));
-		}
+			//agaisnt wall slides in
+			actions.add(new MutlipleAction(new action[]{
+					new FollowTrajectory(robot, goToIntake),
+					new GoToInState(robot)
+			}));
+			//in warehouse intake on
+			actions.add(new MutlipleAction(new action[] {
+					new FollowTrajectory(robot, goToIntake2),
+					new TurnOnIntake(robot, true ),
+					new Delay(2500)
+			}));
+			//leaves warehouse outakes
+			actions.add(new MutlipleAction(new action[]{
+					new FollowTrajectory(robot, exitWareHouse),
+					new TurnOnIntake(robot, false )
+			}));
+			actions.add(new TurnOffIntake(robot));
+			//goes high position and deposit position
+			actions.add(new MutlipleAction(new action[] {
+					new FollowTrajectory(robot, goToDepositCycle),
+					new GoToHighDeposit(robot)
+			}));
+			actions.add(new DepositFreight(robot));
+			actions.add(new Delay(350));
 
 			//agaisnt wall
 			actions.add(new MutlipleAction(new action[]{
