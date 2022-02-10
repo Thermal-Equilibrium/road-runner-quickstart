@@ -22,28 +22,28 @@ import org.firstinspires.ftc.teamcode.templateOpModes.BaseAuto;
 @Autonomous
 public class BlueCycleRR extends BaseAuto {
 
-    public static Vector3D start = new Vector3D(TILE / 2.0, TILE * 3 + 8.375, Math.toRadians(-90));
-    Pose2d depositPosition = new Pose2d(+ 2,-TILE * 2 + 4 ,Math.toRadians(60));
-    double depositTangent = Math.toRadians(120);
+    public static Vector3D start = new Vector3D(TILE / 2.0, TILE * 3 - 8.375, Math.toRadians(90));
+    Pose2d depositPosition = new Pose2d(+ 2,TILE * 2 - 4 ,Math.toRadians(60));
+    double depositTangent = Math.toRadians(-120);
 
-    Pose2d depositPositionMid = new Pose2d(+ 2,TILE * 2 + 5 ,Math.toRadians(60));
-    double depositTangentMid = Math.toRadians(120);
+    Pose2d depositPositionMid = new Pose2d(+ 2,TILE * 2 - 5 ,Math.toRadians(60));
+    double depositTangentMid = Math.toRadians(-120);
 
-    Pose2d depositPositionLow = new Pose2d(-8,TILE * 2 + 5,Math.toRadians(85));
-    double depositTangentLow = Math.toRadians(120);
+    Pose2d depositPositionLow = new Pose2d(-8,TILE * 2 - 5,Math.toRadians(85));
+    double depositTangentLow = Math.toRadians(-120);
 
-    Pose2d intakePosition1 = new Pose2d(10, TILE * 3 + 7.375,0);
-    double intakePosition1Tangent = Math.toRadians(330);
+    Pose2d intakePosition1 = new Pose2d(10, TILE * 3 - 7.375,0);
+    double intakePosition1Tangent = Math.toRadians(-330);
 
-    Pose2d intakePosition2 = new Pose2d(48, TILE * 3 + 7.375,0);
+    Pose2d intakePosition2 = new Pose2d(48, TILE * 3 - 7.375,0);
     double intakePosition2Tangent = Math.toRadians(0);
 
-    Pose2d intakePosition3 = new Pose2d(intakePosition2.getX() + 5, intakePosition2.getY(), intakePosition2.getHeading());
+    Pose2d intakePosition3 = new Pose2d(intakePosition2.getX() - 5, intakePosition2.getY(), intakePosition2.getHeading());
     double intakePosition3Tangent = Math.toRadians(0);
 
     Pose2d exitWarehouse = new Pose2d(intakePosition1.getX(), intakePosition2.getY());
-    double exitWareHouseTangent = Math.toRadians(180);
-    double cycleEndTangent = Math.toRadians(330 - 180);
+    double exitWareHouseTangent = Math.toRadians(-180);
+    double cycleEndTangent = Math.toRadians(-330 - 180);
 
     Trajectory goToDeposit1;
     Trajectory goToDepositHigh;
@@ -104,7 +104,6 @@ public class BlueCycleRR extends BaseAuto {
         actions.add(new NoSlideDeposit(robot));
 
 
-
         switch (TSEPosition) {
 
             case LEFT:
@@ -119,10 +118,10 @@ public class BlueCycleRR extends BaseAuto {
                 break;
 
             case MIDDLE:
+                actions.add(new GoToMidDeposit(robot));
                 actions.add(new MutlipleAction(
                         new action[] {
                                 new FollowTrajectory(robot, goToDepositMid),
-                                new GoToMidDeposit(robot)
                         }
                 ));
                 actions.add(new DepositFreight(robot));
@@ -130,10 +129,10 @@ public class BlueCycleRR extends BaseAuto {
                 break;
 
             case RIGHT:
+                actions.add(new GoToHighDeposit(robot));
                 actions.add(new MutlipleAction(
                         new action[] {
                                 new FollowTrajectory(robot, goToDepositHigh),
-                                new GoToHighDeposit(robot)
                         }
                 ));
                 actions.add(new DepositFreight(robot));
@@ -161,9 +160,10 @@ public class BlueCycleRR extends BaseAuto {
         }));
         actions.add(new TurnOffIntake(robot));
         //goes high position and deposit position
+        actions.add(new  GoToHighDeposit(robot));
         actions.add(new MutlipleAction(new action[] {
                 new FollowTrajectory(robot, goToDepositCycle),
-                new GoToHighDeposit(robot)
+
         }));
         actions.add(new DepositFreight(robot));
         actions.add(new Delay(350));
@@ -185,9 +185,9 @@ public class BlueCycleRR extends BaseAuto {
         }));
         actions.add(new TurnOffIntake(robot));
         //goes high position and deposit position
+        actions.add(new GoToHighDeposit(robot));
         actions.add(new MutlipleAction(new action[] {
                 new FollowTrajectory(robot, goToDepositCycle),
-                new GoToHighDeposit(robot)
         }));
         actions.add(new DepositFreight(robot));
         actions.add(new Delay(350));
