@@ -25,19 +25,19 @@ import org.firstinspires.ftc.teamcode.templateOpModes.BaseAuto;
 @Autonomous
 public class RedCycleRR extends BaseAuto {
 	public static Vector3D start = new Vector3D(TILE / 2.0, -TILE * 3 + 8.375, Math.toRadians(-90));
-	Pose2d depositPosition = new Pose2d(+ 2,-TILE * 2  ,Math.toRadians(-60));
+	Pose2d depositPosition = new Pose2d(+ 2,-TILE * 2 + 2.5  ,Math.toRadians(-65));
 	double depositTangent = Math.toRadians(120);
 
-	Pose2d depositPositionMid = new Pose2d(+ 2,-TILE * 2 + 5 ,Math.toRadians(-60));
+	Pose2d depositPositionMid = new Pose2d(+ 2,-TILE * 2  ,Math.toRadians(-69));
 	double depositTangentMid = Math.toRadians(120);
 
 	Pose2d depositPositionLow = new Pose2d(-8,-TILE * 2 + 5,Math.toRadians(-85));
 	double depositTangentLow = Math.toRadians(120);
 
-	Pose2d intakePosition1 = new Pose2d(10, -TILE * 3 + 7.375,0);
+	Pose2d intakePosition1 = new Pose2d(10, -TILE * 3 + 7.675,0);
 	double intakePosition1Tangent = Math.toRadians(330);
 
-	Pose2d intakePosition2 = new Pose2d(48, -TILE * 3 + 7.375,0);
+	Pose2d intakePosition2 = new Pose2d(48, -TILE * 3 + 7.675,0);
 	double intakePosition2Tangent = Math.toRadians(0);
 
 	Pose2d intakePosition3 = new Pose2d(intakePosition2.getX() + 5, intakePosition2.getY(), intakePosition2.getHeading());
@@ -146,40 +146,12 @@ public class RedCycleRR extends BaseAuto {
 			actions.add(new DeployIntake(robot));
 			actions.add(new Delay(250));
 
-
-
+		for (int i = 0; i < 2; i ++) {
 			//agaisnt wall slides in
 			actions.add(new MutlipleAction(new action[]{
 					new FollowTrajectory(robot, goToIntake),
 					new GoToInState(robot)
 			}));
-			//in warehouse intake on
-			actions.add(new MutlipleAction(new action[] {
-					new FollowTrajectory(robot, goToIntake2),
-					new TurnOnIntake(robot, true ),
-					new Delay(2500)
-			}));
-			//leaves warehouse outakes
-			actions.add(new MutlipleAction(new action[]{
-					new FollowTrajectory(robot, exitWareHouse),
-					new TurnOnIntake(robot, false )
-			}));
-			actions.add(new TurnOffIntake(robot));
-			//goes high position and deposit position
-			actions.add(new GoToHighDeposit(robot));
-			actions.add(new MutlipleAction(new action[] {
-							new FollowTrajectory(robot, goToDepositCycle),
-			}));
-
-			actions.add(new DepositFreight(robot));
-			actions.add(new Delay(350));
-			//agaisnt wall slides in
-
-			actions.add(new MutlipleAction(new action[]{
-					new FollowTrajectory(robot, goToIntake),
-					new GoToInState(robot)
-			}));
-
 			//in warehouse intake on
 			actions.add(new MutlipleAction(new action[] {
 					new FollowTrajectory(robot, goToIntake2),
@@ -198,7 +170,8 @@ public class RedCycleRR extends BaseAuto {
 					new FollowTrajectory(robot, goToDepositCycle),
 			}));
 			actions.add(new DepositFreight(robot));
-			actions.add(new Delay(350));
+			actions.add(new Delay(250));
+		}
 
 			//agaisnt wall
 			actions.add(new MutlipleAction(new action[]{
