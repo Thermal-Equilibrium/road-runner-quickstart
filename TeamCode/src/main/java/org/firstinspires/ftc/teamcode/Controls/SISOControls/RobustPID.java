@@ -51,6 +51,10 @@ public class RobustPID {
 
 	protected double scaling = 1;
 
+
+
+	protected double H2Cutoff = 0;
+
 	/**
 	 * construct PID with buffer length and stability threshold
 	 *
@@ -101,11 +105,18 @@ public class RobustPID {
 			out1 = coefficients.H * Math.signum(out1) * scaling;
 		}
 
+
+
 		output = out1 +
 				(reference * coefficients.Kf) +
 				(derivative * coefficients.Kd);
 		previous_feedback = output;
 		output += adaptiveFeedforward();
+
+		if (reference == 0 && Math.abs(error) > H2Cutoff) {
+			output += Math.signum(error) * coefficients.H2;
+		}
+
 		lastError = error;
 	}
 
@@ -303,6 +314,14 @@ public class RobustPID {
 
 	public double adaptiveFeedforward() {
 		return previous_feedback * (0.25 * coefficients.Kp);
+	}
+
+	public double getH2Cutoff() {
+		return H2Cutoff;
+	}
+
+	public void setH2Cutoff(double h2Cutoff) {
+		H2Cutoff = h2Cutoff;
 	}
 
 

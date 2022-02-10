@@ -8,6 +8,7 @@ public class PIDFCoefficients {
     public double Kd2;
     public double Kf;
     public double H;
+    public double H2;
 
     public PIDFCoefficients(double Kp, double Ki, double Kd, double Kd2, double Kf) {
         this.Kp = Kp;
@@ -15,6 +16,8 @@ public class PIDFCoefficients {
         this.Kd = Kd;
         this.Kf = Kf;
         this.Kd2 = Kd2;
+        this.H = 0;
+        this.H2 = 0;
     }
 
     public PIDFCoefficients(double Kp, double Ki, double Kd, double Kd2, double Kf, double H) {
@@ -24,8 +27,18 @@ public class PIDFCoefficients {
         this.Kf = Kf;
         this.Kd2 = Kd2;
         this.H = H;
+        this.H2 = 0;
     }
 
+    public PIDFCoefficients(double Kp, double Ki, double Kd, double Kd2, double Kf, double H, double H2) {
+        this.Kp = Kp;
+        this.Ki = Ki;
+        this.Kd = Kd;
+        this.Kf = Kf;
+        this.Kd2 = Kd2;
+        this.H = H;
+        this.H2 = 0;
+    }
     public PIDFCoefficients(double Kp, double Ki, double Kd, double Kf) {
         this.Kp = Kp;
         this.Ki = Ki;
@@ -33,6 +46,7 @@ public class PIDFCoefficients {
         this.Kd2 = 0;
         this.Kf = Kf;
         this.H = 0;
+        this.H2 = 0;
     }
 
     public PIDFCoefficients(double Kp, double Ki, double Kd) {
@@ -42,6 +56,7 @@ public class PIDFCoefficients {
         this.Kd2 = 0;
         this.Kf = 0;
         this.H = 0;
+        this.H2 = 0;
     }
 
 
@@ -50,7 +65,7 @@ public class PIDFCoefficients {
      * @return feedback only coefficients
      */
     public PIDFCoefficients noFeedforward() {
-        return new PIDFCoefficients(this.Kp,this.Ki,this.Kd,0,0,0);
+        return new PIDFCoefficients(this.Kp,this.Ki,this.Kd,0,0,0,0);
     }
 
 
