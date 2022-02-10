@@ -25,7 +25,7 @@ import org.firstinspires.ftc.teamcode.templateOpModes.BaseAuto;
 @Autonomous
 public class RedCycleRR extends BaseAuto {
 	public static Vector3D start = new Vector3D(TILE / 2.0, -TILE * 3 + 8.375, Math.toRadians(-90));
-	Pose2d depositPosition = new Pose2d(+ 2,-TILE * 2 + 4 ,Math.toRadians(-60));
+	Pose2d depositPosition = new Pose2d(+ 2,-TILE * 2  ,Math.toRadians(-60));
 	double depositTangent = Math.toRadians(120);
 
 	Pose2d depositPositionMid = new Pose2d(+ 2,-TILE * 2 + 5 ,Math.toRadians(-60));
@@ -119,34 +119,34 @@ public class RedCycleRR extends BaseAuto {
 						}
 				));
 				actions.add(new NoSlideDeposit(robot));
-				actions.add(new DepositFreight(robot));
-				actions.add(new Delay(500));
 				break;
 
 			case MIDDLE:
-				actions.add(new GoToMidDeposit(robot));
 				actions.add(new MutlipleAction(
 						new action[] {
 								new FollowTrajectory(robot, goToDepositMid),
+								new GoToMidDeposit(robot)
 						}
 				));
 				actions.add(new DepositFreight(robot));
-				actions.add(new Delay(250));
 				break;
 
 			case RIGHT:
-				actions.add(new GoToHighDeposit(robot));
 				actions.add(new MutlipleAction(
 						new action[] {
 								new FollowTrajectory(robot, goToDepositHigh),
+								new GoToHighDeposit(robot)
 						}
 				));
 				actions.add(new DepositFreight(robot));
-				actions.add(new Delay(250));
 				break;
 		}
 
+			actions.add(new DepositFreight(robot));
 			actions.add(new DeployIntake(robot));
+			actions.add(new Delay(250));
+
+
 
 			//agaisnt wall slides in
 			actions.add(new MutlipleAction(new action[]{
