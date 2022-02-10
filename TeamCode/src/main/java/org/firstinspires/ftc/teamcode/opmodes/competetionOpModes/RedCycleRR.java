@@ -37,7 +37,7 @@ public class RedCycleRR extends BaseAuto {
 	Pose2d intakePosition1 = new Pose2d(10, -TILE * 3 + 7.675,0);
 	double intakePosition1Tangent = Math.toRadians(330);
 
-	Pose2d intakePosition2 = new Pose2d(48, -TILE * 3 + 7.675,0);
+	Pose2d intakePosition2 = new Pose2d(52, -TILE * 3 + 7.675,0);
 	double intakePosition2Tangent = Math.toRadians(0);
 
 	Pose2d intakePosition3 = new Pose2d(intakePosition2.getX() + 5, intakePosition2.getY(), intakePosition2.getHeading());
