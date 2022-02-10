@@ -20,7 +20,7 @@ public class CommandDeposit2 implements teleopAction {
 	Gamepad gamepad2;
 
 	public static final double DEPOSIT_DURATION = 370.0;
-	public static final double GOING_IN_DURATION = 1500;
+	public static final double GOING_IN_DURATION = 1000;
 
 	protected Deposit.depositStates desiredUpState = Deposit.depositStates.AT_HIGH;
 	protected Deposit.depositStates desiredUpStateTransition = Deposit.depositStates.GOING_TO_HIGH;
