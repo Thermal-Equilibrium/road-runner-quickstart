@@ -35,13 +35,15 @@ public class BlueCycleRR extends BaseAuto {
     Pose2d intakePosition1 = new Pose2d(10, TILE * 3 - 7.375,0);
     double intakePosition1Tangent = Math.toRadians(-330);
 
-    Pose2d intakePosition2 = new Pose2d(48, TILE * 3 - 7.375,0);
+    Pose2d intakePosition2A = new Pose2d(48, TILE * 3 - 7.375,0);
     double intakePosition2Tangent = Math.toRadians(0);
 
-    Pose2d intakePosition3 = new Pose2d(intakePosition2.getX() - 5, intakePosition2.getY(), intakePosition2.getHeading());
+    Pose2d intakePosition2B = new Pose2d(52, TILE * 3 - 7.375,0);
+
+    Pose2d intakePosition3 = new Pose2d(intakePosition2A.getX() - 5, intakePosition2A.getY(), intakePosition2A.getHeading());
     double intakePosition3Tangent = Math.toRadians(0);
 
-    Pose2d exitWarehouse = new Pose2d(intakePosition1.getX(), intakePosition2.getY());
+    Pose2d exitWarehouse = new Pose2d(intakePosition1.getX(), intakePosition2A.getY());
     double exitWareHouseTangent = Math.toRadians(-180);
     double cycleEndTangent = Math.toRadians(-330 - 180);
 
@@ -51,10 +53,13 @@ public class BlueCycleRR extends BaseAuto {
     Trajectory goToDepositLow;
 
     Trajectory goToIntake;
-    Trajectory goToIntake2;
+    Trajectory goToIntake2A;
+    Trajectory goToIntake2B;
 
     Trajectory exitWareHouse;
     Trajectory goToDepositCycle;
+
+    Trajectory[] intake2Options = {goToIntake2A, goToIntake2B};
 
 
     @Override
@@ -79,11 +84,11 @@ public class BlueCycleRR extends BaseAuto {
         goToIntake = roadrunnerDrive.trajectoryBuilder(goToDeposit1.end(),false)
                 .splineToLinearHeading(intakePosition1, intakePosition1Tangent).build();
 
-        goToIntake2 = roadrunnerDrive.trajectoryBuilder(goToIntake.end(),false)
-                .splineToSplineHeading(intakePosition2, intakePosition2Tangent).build();
+        goToIntake2A = roadrunnerDrive.trajectoryBuilder(goToIntake.end(),false)
+                .splineToSplineHeading(intakePosition2A, intakePosition2Tangent).build();
 
 
-        exitWareHouse = roadrunnerDrive.trajectoryBuilder(goToIntake2.end(), true)
+        exitWareHouse = roadrunnerDrive.trajectoryBuilder(goToIntake2A.end(), true)
                 .splineToLinearHeading(exitWarehouse, exitWareHouseTangent)
                 .build();
 
@@ -104,6 +109,7 @@ public class BlueCycleRR extends BaseAuto {
         actions.add(new NoSlideDeposit(robot));
 
 
+
         switch (TSEPosition) {
 
             case LEFT:
@@ -113,84 +119,59 @@ public class BlueCycleRR extends BaseAuto {
                         }
                 ));
                 actions.add(new NoSlideDeposit(robot));
-                actions.add(new DepositFreight(robot));
-                actions.add(new Delay(500));
                 break;
 
             case MIDDLE:
-                actions.add(new GoToMidDeposit(robot));
                 actions.add(new MutlipleAction(
                         new action[] {
                                 new FollowTrajectory(robot, goToDepositMid),
+                                new GoToMidDeposit(robot)
                         }
                 ));
                 actions.add(new DepositFreight(robot));
-                actions.add(new Delay(250));
                 break;
 
             case RIGHT:
-                actions.add(new GoToHighDeposit(robot));
                 actions.add(new MutlipleAction(
                         new action[] {
                                 new FollowTrajectory(robot, goToDepositHigh),
+                                new GoToHighDeposit(robot)
                         }
                 ));
                 actions.add(new DepositFreight(robot));
-                actions.add(new Delay(250));
                 break;
         }
 
+        actions.add(new DepositFreight(robot));
         actions.add(new DeployIntake(robot));
+        actions.add(new Delay(250));
 
-        //agaisnt wall slides in
-        actions.add(new MutlipleAction(new action[]{
-                new FollowTrajectory(robot, goToIntake),
-                new GoToInState(robot)
-        }));
-        //in warehouse intake on
-        actions.add(new MutlipleAction(new action[] {
-                new FollowTrajectory(robot, goToIntake2),
-                new TurnOnIntake(robot, true ),
-                new Delay(2500)
-        }));
-        //leaves warehouse outakes
-        actions.add(new MutlipleAction(new action[]{
-                new FollowTrajectory(robot, exitWareHouse),
-                new TurnOnIntake(robot, false )
-        }));
-        actions.add(new TurnOffIntake(robot));
-        //goes high position and deposit position
-        actions.add(new  GoToHighDeposit(robot));
-        actions.add(new MutlipleAction(new action[] {
-                new FollowTrajectory(robot, goToDepositCycle),
-
-        }));
-        actions.add(new DepositFreight(robot));
-        actions.add(new Delay(350));
-        //agaisnt wall slides in
-        actions.add(new MutlipleAction(new action[]{
-                new FollowTrajectory(robot, goToIntake),
-                new GoToInState(robot)
-        }));
-        //in warehouse intake on
-        actions.add(new MutlipleAction(new action[] {
-                new FollowTrajectory(robot, goToIntake2),
-                new TurnOnIntake(robot, true ),
-                new Delay(2500)
-        }));
-        //leaves warehouse outakes
-        actions.add(new MutlipleAction(new action[]{
-                new FollowTrajectory(robot, exitWareHouse),
-                new TurnOnIntake(robot, false )
-        }));
-        actions.add(new TurnOffIntake(robot));
-        //goes high position and deposit position
-        actions.add(new GoToHighDeposit(robot));
-        actions.add(new MutlipleAction(new action[] {
-                new FollowTrajectory(robot, goToDepositCycle),
-        }));
-        actions.add(new DepositFreight(robot));
-        actions.add(new Delay(350));
+        for (int i = 0; i < 2; i ++) {
+            //agaisnt wall slides in
+            actions.add(new MutlipleAction(new action[]{
+                    new FollowTrajectory(robot, goToIntake),
+                    new GoToInState(robot)
+            }));
+            //in warehouse intake on
+            actions.add(new MutlipleAction(new action[] {
+                    new FollowTrajectory(robot, intake2Options[i]),
+                    new TurnOnIntake(robot, true ),
+                    new Delay(2500)
+            }));
+            //leaves warehouse outakes
+            actions.add(new MutlipleAction(new action[]{
+                    new FollowTrajectory(robot, exitWareHouse),
+                    new TurnOnIntake(robot, false )
+            }));
+            actions.add(new TurnOffIntake(robot));
+            //goes high position and deposit position
+            actions.add(new GoToHighDeposit(robot));
+            actions.add(new MutlipleAction(new action[] {
+                    new FollowTrajectory(robot, goToDepositCycle),
+            }));
+            actions.add(new DepositFreight(robot));
+            actions.add(new Delay(250));
+        }
 
         //agaisnt wall
         actions.add(new MutlipleAction(new action[]{
@@ -199,7 +180,7 @@ public class BlueCycleRR extends BaseAuto {
         }));
         //parks
         actions.add(new MutlipleAction(new action[] {
-                new FollowTrajectory(robot, goToIntake2),
+                new FollowTrajectory(robot, goToIntake2A),
                 new TurnOnIntake(robot, true )
         }));
         //Turns off intake
@@ -207,6 +188,7 @@ public class BlueCycleRR extends BaseAuto {
         actions.add(new TurnOffIntake(robot));
 
     }
+
 }
 
 
