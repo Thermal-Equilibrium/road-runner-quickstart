@@ -26,7 +26,7 @@ public class BaseTeleop extends LinearOpMode {
 		robot.init(hardwareMap);
 //		robot.odometry.setState(ThreeWheelOdometry.OdomState.DEPLOYED);
 		robot.setRobotPose(PoseStorage.pose);
-
+		robot.retract.retract();
 
 		addActions();
 		scheduler = new Scheduler(robot.getSubsystems(), actions, hardwareMap);
