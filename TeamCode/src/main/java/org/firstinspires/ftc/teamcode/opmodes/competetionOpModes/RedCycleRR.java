@@ -125,20 +125,20 @@ public class RedCycleRR extends BaseAuto {
 				break;
 
 			case MIDDLE:
-				actions.add(new GoToMidDeposit(robot));
 				actions.add(new MutlipleAction(
 						new action[] {
 								new FollowTrajectory(robot, goToDepositMid),
+								new GoToMidDeposit(robot)
 						}
 				));
 				actions.add(new DepositFreight(robot));
 				break;
 
 			case RIGHT:
-				actions.add(new GoToHighDeposit(robot));
 				actions.add(new MutlipleAction(
 						new action[] {
 								new FollowTrajectory(robot, goToDepositHigh),
+								new GoToHighDeposit(robot)
 						}
 				));
 				actions.add(new DepositFreight(robot));
@@ -191,4 +191,5 @@ public class RedCycleRR extends BaseAuto {
 			actions.add(new TurnOffIntake(robot));
 
 	}
+	//E A SPORTS
 }
