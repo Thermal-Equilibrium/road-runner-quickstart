@@ -42,15 +42,9 @@ public class RedCycleRR extends BaseAuto {
 
 
 
-	Pose2d intakePosition3 = new Pose2d(intakePosition2A.getX() + 5, intakePosition2A.getY(), intakePosition2A.getHeading());
-	double intakePosition3Tangent = Math.toRadians(0);
-
 	Pose2d exitWarehouse = new Pose2d(intakePosition1.getX(), intakePosition2A.getY());
 	double exitWareHouseTangent = Math.toRadians(180);
 	double cycleEndTangent = Math.toRadians(330 - 180);
-
-	Pose2d intakePosition4 = new Pose2d(intakePosition2A.getX() - 5, intakePosition2A.getY(), Math.toRadians(0));
-	double intakePosition4Tangent = Math.toRadians(0);
 
 	Trajectory goToDeposit1;
 	Trajectory goToDepositHigh;
@@ -64,7 +58,7 @@ public class RedCycleRR extends BaseAuto {
 	Trajectory exitWareHouse;
 	Trajectory goToDepositCycle;
 
-	Trajectory[] intake2Options = {goToIntake2A, goToIntake2B};
+	Trajectory[] intake2Options;
 
 
 
@@ -104,6 +98,9 @@ public class RedCycleRR extends BaseAuto {
 		goToDepositCycle = roadrunnerDrive.trajectoryBuilder(exitWareHouse.end(), true)
 				.splineToLinearHeading(depositPosition,cycleEndTangent)
 				.build();
+
+
+		intake2Options = new Trajectory[]{goToIntake2A, goToIntake2B};
 	}
 
 	@Override
@@ -116,9 +113,6 @@ public class RedCycleRR extends BaseAuto {
 
 		// this makes sure the robot starts with the bucket all the way out instead of flipping back
 		actions.add(new NoSlideDeposit(robot));
-
-
-
 		switch (TSEPosition) {
 
 			case LEFT:
