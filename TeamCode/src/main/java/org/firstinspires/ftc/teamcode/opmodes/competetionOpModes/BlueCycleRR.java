@@ -59,7 +59,7 @@ public class BlueCycleRR extends BaseAuto {
     Trajectory exitWareHouse;
     Trajectory goToDepositCycle;
 
-    Trajectory[] intake2Options = {goToIntake2A, goToIntake2B};
+    Trajectory[] intake2Options;
 
 
     @Override
@@ -95,6 +95,8 @@ public class BlueCycleRR extends BaseAuto {
         goToDepositCycle = roadrunnerDrive.trajectoryBuilder(exitWareHouse.end(), true)
                 .splineToLinearHeading(depositPosition,cycleEndTangent)
                 .build();
+
+        intake2Options = new Trajectory[]{goToIntake2A, goToIntake2B};
     }
 
     @Override
