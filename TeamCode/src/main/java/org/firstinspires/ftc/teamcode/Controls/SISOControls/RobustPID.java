@@ -114,7 +114,7 @@ public class RobustPID {
 		output += adaptiveFeedforward();
 
 		if (reference == 0 && Math.abs(error) > H2Cutoff) {
-			output += Math.signum(error) * coefficients.H2 * scaling;
+			output -= coefficients.H2 * scaling;
 		}
 
 		lastError = error;
