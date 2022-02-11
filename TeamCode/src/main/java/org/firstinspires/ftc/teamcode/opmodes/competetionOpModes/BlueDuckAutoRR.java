@@ -14,7 +14,6 @@ import static org.firstinspires.ftc.teamcode.Utils.utils.fromPose2D;
 public class BlueDuckAutoRR extends BaseAuto {
 
     Pose2d startPosition = new Pose2d(-TILE * 1.5, TILE * 3 - 8.375,  Math.toRadians(-90));
-
     Pose2d depositPose = new Pose2d(-TILE, 2 * TILE, Math.toRadians(-60 - 180));
     double depositTangent = Math.toRadians(30.0);
 
