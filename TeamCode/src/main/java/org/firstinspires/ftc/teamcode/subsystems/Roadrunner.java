@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 import homeostasis.systems.DcMotorPlant;
 
+import static org.firstinspires.ftc.teamcode.Utils.utils.drawRobot;
 import static org.firstinspires.ftc.teamcode.Utils.utils.fromPose2D;
 import static org.firstinspires.ftc.teamcode.Utils.utils.toPose2D;
 import static org.firstinspires.ftc.teamcode.subsystems.Robot.isCompBot;
@@ -81,6 +82,8 @@ public class Roadrunner implements subsystem {
 
         mecanumDrive.update();
         PoseStorage.pose = fromPose2D(mecanumDrive.getPoseEstimate());
+
+        drawRobot(fromPose2D(mecanumDrive.getPoseEstimate()), Dashboard.packet);
 
     }
 
