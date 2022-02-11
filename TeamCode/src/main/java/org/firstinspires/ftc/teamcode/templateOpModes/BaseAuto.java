@@ -45,8 +45,10 @@ public abstract class BaseAuto extends LinearOpMode {
 		this.roadrunnerDrive = robot.driveTrain.mecanumDrive;
 
 		this.robot.bucketSys.setCheckSensor(false);
-
+		robot.retract.down();
 		setStartingPosition();
+
+
 
 		while (!isStopRequested() && !isStarted()) {
 			TSEPosition = robot.duckDetection.subsystemState();

@@ -34,6 +34,8 @@ public class Robot {
 
     public DuckWheel duckwheel = new DuckWheel();
 
+    public DeadwheelRetract retract = new DeadwheelRetract();
+
 
     public DistanceSensorLocalization distanceSensorLocalization
             = new DistanceSensorLocalization(driveTrain);
@@ -72,12 +74,14 @@ public class Robot {
         bucketSys.init(hwmap);
         duckDetection.init(hwmap);
         duckwheel.init(hwmap);
+        retract.init(hwmap);
         subsystems.add(bucketSys);
         subsystems.add(Intake);
         subsystems.add(Deposit);
         subsystems.add(duckDetection);
         subsystems.add(duckwheel);
         subsystems.add(distanceSensorLocalization);
+        subsystems.add(retract);
 
     }
 
