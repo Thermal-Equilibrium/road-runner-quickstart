@@ -39,7 +39,7 @@ public class DeadwheelRetract implements subsystem{
 		odo2.setPosition(upPosition);
 	}
 
-	public void down() {
+	public void extend() {
 		odo1.setPosition(downPosition);
 		odo2.setPosition(downPosition);
 	}
