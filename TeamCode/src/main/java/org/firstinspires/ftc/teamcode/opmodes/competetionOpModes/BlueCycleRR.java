@@ -21,6 +21,7 @@ import org.firstinspires.ftc.teamcode.opmodes.FieldSide;
 import org.firstinspires.ftc.teamcode.templateOpModes.BaseAuto;
 
 import static org.firstinspires.ftc.teamcode.opmodes.FieldSide.ALLIANCE.BLUE;
+import static org.firstinspires.ftc.teamcode.opmodes.FieldSide.ALLIANCE.RED;
 
 @Autonomous
 public class BlueCycleRR extends BaseAuto {
@@ -29,22 +30,20 @@ public class BlueCycleRR extends BaseAuto {
     Pose2d depositPosition = new Pose2d(+ 2,TILE * 2 - 4 ,Math.toRadians(60));
     double depositTangent = Math.toRadians(-120);
 
-    Pose2d depositPositionMid = new Pose2d(+ 2,TILE * 2 - 5 ,Math.toRadians(60));
+    Pose2d depositPositionMid = new Pose2d(+ 2,TILE * 2 - 8 ,Math.toRadians(60));
     double depositTangentMid = Math.toRadians(-120);
 
     Pose2d depositPositionLow = new Pose2d(-8,TILE * 2 - 5,Math.toRadians(85));
     double depositTangentLow = Math.toRadians(-120);
 
-    Pose2d intakePosition1 = new Pose2d(10, TILE * 3 - 7.375,0);
+    Pose2d intakePosition1 = new Pose2d(10, TILE * 3 - 6.375,0);
     double intakePosition1Tangent = Math.toRadians(-330);
 
-    Pose2d intakePosition2A = new Pose2d(48, TILE * 3 - 7.375,0);
+    Pose2d intakePosition2A = new Pose2d(48, TILE * 3 - 6.375,0);
+    Pose2d intakePosition2B = new Pose2d(56, TILE * 3 - 6.675,0);
+
     double intakePosition2Tangent = Math.toRadians(0);
 
-    Pose2d intakePosition2B = new Pose2d(52, TILE * 3 - 7.375,0);
-
-    Pose2d intakePosition3 = new Pose2d(intakePosition2A.getX() - 5, intakePosition2A.getY(), intakePosition2A.getHeading());
-    double intakePosition3Tangent = Math.toRadians(0);
 
     Pose2d exitWarehouse = new Pose2d(intakePosition1.getX(), intakePosition2A.getY());
     double exitWareHouseTangent = Math.toRadians(-180);
@@ -90,6 +89,9 @@ public class BlueCycleRR extends BaseAuto {
         goToIntake2A = roadrunnerDrive.trajectoryBuilder(goToIntake.end(),false)
                 .splineToSplineHeading(intakePosition2A, intakePosition2Tangent).build();
 
+        goToIntake2B = roadrunnerDrive.trajectoryBuilder(goToIntake.end(),false)
+                .splineToSplineHeading(intakePosition2B, intakePosition2Tangent).build();
+
 
         exitWareHouse = roadrunnerDrive.trajectoryBuilder(goToIntake2A.end(), true)
                 .splineToLinearHeading(exitWarehouse, exitWareHouseTangent)
@@ -98,6 +100,7 @@ public class BlueCycleRR extends BaseAuto {
         goToDepositCycle = roadrunnerDrive.trajectoryBuilder(exitWareHouse.end(), true)
                 .splineToLinearHeading(depositPosition,cycleEndTangent)
                 .build();
+
 
         intake2Options = new Trajectory[]{goToIntake2A, goToIntake2B};
     }
@@ -112,7 +115,6 @@ public class BlueCycleRR extends BaseAuto {
 
         // this makes sure the robot starts with the bucket all the way out instead of flipping back
         actions.add(new NoSlideDeposit(robot));
-
         switch (TSEPosition) {
 
             case LEFT:

@@ -30,19 +30,19 @@ public class RedCycleRR extends BaseAuto {
 	Pose2d depositPosition = new Pose2d(+ 2,-TILE * 2 + 2.5  ,Math.toRadians(-65));
 	double depositTangent = Math.toRadians(120);
 
-	Pose2d depositPositionMid = new Pose2d(+ 2,-TILE * 2  ,Math.toRadians(-69));
+	Pose2d depositPositionMid = new Pose2d(+ 2,-TILE * 2 + 2.5 ,Math.toRadians(-69));
 	double depositTangentMid = Math.toRadians(120);
 
 	Pose2d depositPositionLow = new Pose2d(-8,-TILE * 2 + 5,Math.toRadians(-85));
 	double depositTangentLow = Math.toRadians(120);
 
-	Pose2d intakePosition1 = new Pose2d(10, -TILE * 3 + 7.675,0);
+	Pose2d intakePosition1 = new Pose2d(10, -TILE * 3 + 6.675,0);
 	double intakePosition1Tangent = Math.toRadians(330);
 
-	Pose2d intakePosition2A = new Pose2d(52, -TILE * 3 + 7.675,0);
+	Pose2d intakePosition2A = new Pose2d(52, -TILE * 3 + 6.675,0);
 	double intakePosition2Tangent = Math.toRadians(0);
 
-	Pose2d intakePosition2B = new Pose2d(56, -TILE * 3 + 7.675,0);
+	Pose2d intakePosition2B = new Pose2d(56, -TILE * 3 + 6.675,0);
 
 
 

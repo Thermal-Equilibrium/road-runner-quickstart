@@ -91,14 +91,21 @@ public class Robot {
      * @param hwmap HardwareMap instance
      */
     public void initWithoutReset(HardwareMap hwmap) {
-        driveTrain.initNoReset(hwmap);
-        dashBoard.initNoReset(hwmap);
-        Intake.initNoReset(hwmap);
+        initMinimal(hwmap);
+        distanceSensorLocalization.init(hwmap);
+        Intake.init(hwmap);
         Deposit.initNoReset(hwmap);
+        bucketSys.init(hwmap);
+        duckDetection.init(hwmap);
+        duckwheel.init(hwmap);
+        retract.init(hwmap);
+        subsystems.add(bucketSys);
         subsystems.add(Intake);
         subsystems.add(Deposit);
-        subsystems.add(driveTrain);
-        subsystems.add(dashBoard);
+        subsystems.add(duckDetection);
+        subsystems.add(duckwheel);
+        subsystems.add(distanceSensorLocalization);
+        subsystems.add(retract);
     }
 
     /**

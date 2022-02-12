@@ -25,9 +25,9 @@ public class TSEContourPipeline extends OpenCvPipeline {
 	public static Scalar higher = new Scalar(0,0,0);
 
 	public static boolean tuning_mode = false;
-	public static double high1 = 120;
-	public static double high2 = 250;
-	public static double high3 = 150;
+	public static double high1 = 140;
+	public static double high2 = 220;
+	public static double high3 = 160;
 	public static double low1 = 80;
 	public static double low2 = 200;
 	public static double low3 = 80;

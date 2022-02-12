@@ -27,15 +27,15 @@ public class BaseTeleop extends LinearOpMode {
 	@Override
 	public void runOpMode() {
 		robot = new Robot();
-		robot.init(hardwareMap);
+		robot.initWithoutReset(hardwareMap);
 //		robot.odometry.setState(ThreeWheelOdometry.OdomState.DEPLOYED);
 
 		switch (alliance) {
 			case RED:
-				robot.setRobotPose(new Vector3D(0,0,Math.toRadians(0)));
+				robot.setRobotPose(new Vector3D(0,0,Math.toRadians(90)));
 				break;
 			case BLUE:
-				robot.setRobotPose(new Vector3D(0,0,Math.toRadians(180)));
+				robot.setRobotPose(new Vector3D(0,0,Math.toRadians(90)));
 				break;
 		}
 
