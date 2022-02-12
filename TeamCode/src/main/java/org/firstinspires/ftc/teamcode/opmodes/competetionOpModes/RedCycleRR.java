@@ -17,7 +17,11 @@ import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.GoToH
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.GoToInState;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.GoToMidDeposit;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.NoSlideDeposit;
+import org.firstinspires.ftc.teamcode.opmodes.FieldSide;
 import org.firstinspires.ftc.teamcode.templateOpModes.BaseAuto;
+
+import static org.firstinspires.ftc.teamcode.opmodes.FieldSide.ALLIANCE.BLUE;
+import static org.firstinspires.ftc.teamcode.opmodes.FieldSide.ALLIANCE.RED;
 
 
 @Autonomous
@@ -105,7 +109,7 @@ public class RedCycleRR extends BaseAuto {
 
 	@Override
 	public void setVisionSettings() {
-
+		FieldSide.alliance = RED;
 	}
 
 	@Override
