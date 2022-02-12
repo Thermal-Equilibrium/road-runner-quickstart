@@ -7,9 +7,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Geometry.Vector3D;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.DrivetrainControl.FollowTrajectory;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.NoSlideDeposit;
+import org.firstinspires.ftc.teamcode.opmodes.FieldSide;
 import org.firstinspires.ftc.teamcode.templateOpModes.BaseAuto;
 
 import static org.firstinspires.ftc.teamcode.Utils.utils.fromPose2D;
+import static org.firstinspires.ftc.teamcode.opmodes.FieldSide.ALLIANCE.RED;
 
 @Autonomous
 public class RedDuckAutoRR extends BaseAuto {
@@ -49,7 +51,7 @@ public class RedDuckAutoRR extends BaseAuto {
 
 	@Override
 	public void setVisionSettings() {
-
+		FieldSide.alliance = RED;
 	}
 
 	@Override
