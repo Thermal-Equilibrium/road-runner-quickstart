@@ -6,8 +6,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Geometry.Vector3D;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.DrivetrainControl.FollowTrajectory;
+import org.firstinspires.ftc.teamcode.commandBase.autoActions.Ducks.SetDuckWheel;
+import org.firstinspires.ftc.teamcode.commandBase.autoActions.Misc.Delay;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.NoSlideDeposit;
 import org.firstinspires.ftc.teamcode.opmodes.FieldSide;
+import org.firstinspires.ftc.teamcode.subsystems.DuckWheel;
 import org.firstinspires.ftc.teamcode.templateOpModes.BaseAuto;
 
 import static org.firstinspires.ftc.teamcode.Utils.utils.fromPose2D;
@@ -21,8 +24,8 @@ public class RedDuckAutoRR extends BaseAuto {
 	Pose2d depositPose = new Pose2d(-TILE, -2 * TILE, Math.toRadians(60 + 180));
 	double depositTangent = Math.toRadians(30.0);
 
-	Pose2d carouselPose = new Pose2d(-TILE * 2, -TILE * 3 + 12, Math.toRadians(180));
-	double carouselTangent = Math.toRadians(180.0);
+	Pose2d carouselPose = new Pose2d(-TILE * 2 - 11, -TILE * 3 + 15, Math.toRadians(270));
+	double carouselTangent = Math.toRadians(180);
 
 	Pose2d park = new Pose2d(-TILE * 2.5, -TILE * 1.5,Math.toRadians(0));
 	double parkTangent = Math.toRadians(180.0);
@@ -59,9 +62,14 @@ public class RedDuckAutoRR extends BaseAuto {
 
 		// makes sure that the bucket stays out after auto init
 		actions.add(new NoSlideDeposit(robot));
-
 		actions.add(new FollowTrajectory(robot, goToDeposit));
+
 		actions.add(new FollowTrajectory(robot, goToCarousel));
+
+		actions.add(new SetDuckWheel(robot, DuckWheel.DuckWheelState.OTHER_ON));
+		actions.add(new Delay(3200));
+		actions.add(new SetDuckWheel(robot, DuckWheel.DuckWheelState.OFF));
+
 		actions.add(new FollowTrajectory(robot, goToPark));
 
 	}

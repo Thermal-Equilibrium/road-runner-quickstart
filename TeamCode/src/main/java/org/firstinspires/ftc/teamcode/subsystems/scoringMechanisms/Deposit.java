@@ -14,7 +14,7 @@ public class Deposit implements subsystem {
 
 	public double slideErrorTolerance = 5;
 	protected Slides slideSystem = new Slides();
-	protected Extension v4b = new Extension();
+	public Extension v4b = new Extension();
 	protected depositStates state = depositStates.IN;
 	protected BucketFlip bucketFlip = new BucketFlip();
 

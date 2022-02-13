@@ -10,8 +10,10 @@ public class Extension implements subsystem {
 
 	protected final double COLLECTION = 1;
 	protected final double IN = 1;
-	protected final double LOW = 0.4;
-	protected final double MID = 0.4;
+	public final double LOW_1 = 0.77;
+	public final double LOW_2 = 0.7;
+	public double LOW = LOW_1;
+	protected final double MID = 0.6;
 	protected final double HIGH = 0.4;
 	protected Servo extension;
 	protected Deposit.depositStates state = Deposit.depositStates.IN;

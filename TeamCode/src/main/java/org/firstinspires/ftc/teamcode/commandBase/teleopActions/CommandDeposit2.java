@@ -48,6 +48,10 @@ public class CommandDeposit2 implements teleopAction {
 	@Override
 	public void periodic() {
 
+
+		if (gamepad1.dpad_right) robot.Deposit.v4b.LOW = robot.Deposit.v4b.LOW_1;
+		if (gamepad1.dpad_up) robot.Deposit.v4b.LOW = robot.Deposit.v4b.LOW_2;
+
 		slideToggle.button(slideToggle());
 
 		setDesiredStates();

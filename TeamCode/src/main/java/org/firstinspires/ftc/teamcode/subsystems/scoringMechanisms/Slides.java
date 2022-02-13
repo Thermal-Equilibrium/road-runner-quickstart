@@ -31,7 +31,7 @@ public class Slides implements subsystem {
 	protected double IN = 0;
 	protected double COLLECTION = 0;
 	protected double LOW = 60;
-	protected double MID = 110;
+	protected double MID = 120;
 	protected double HIGH = 260; // tune this imo
 
 	protected double referencePosition = 0;
@@ -58,6 +58,7 @@ public class Slides implements subsystem {
 		ArrayList<DcMotorEx> motors = new ArrayList<>();
 		motors.add(right);
 		motors.add(left);
+
 		slides = new DcMotorPlant(motors);
 		slideController.setLimitIntegralSum(false);
 		slideController.setH2Cutoff(5);
@@ -81,7 +82,6 @@ public class Slides implements subsystem {
 			case COLLECTION:
 				referencePosition = COLLECTION;
 				break;
-			case GOING_TO_LOW_2:
 			case GOING_TO_MID:
 			case AT_MID:
 				referencePosition = MID;
@@ -91,6 +91,7 @@ public class Slides implements subsystem {
 				referencePosition = HIGH;
 				break;
 			case GOING_TO_LOW:
+			case GOING_TO_LOW_2:
 			case AT_LOW:
 				referencePosition = LOW;
 				break;
@@ -110,6 +111,7 @@ public class Slides implements subsystem {
 		Dashboard.packet.put("Current",left.getCurrent(CurrentUnit.AMPS) + right.getCurrent(CurrentUnit.AMPS));
 		Dashboard.packet.put("SlidePower",controllerCommand);
 		Dashboard.packet.put("slide error", error);
+		Dashboard.packet.put("slide position", slides.getState().getPosition());
 	}
 
 	public double getControllerError() {

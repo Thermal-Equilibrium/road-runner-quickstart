@@ -36,11 +36,11 @@ public class BlueCycleRR extends BaseAuto {
     Pose2d depositPositionLow = new Pose2d(-8,TILE * 2 - 5,Math.toRadians(85));
     double depositTangentLow = Math.toRadians(-120);
 
-    Pose2d intakePosition1 = new Pose2d(10, TILE * 3 - 6.375,0);
+    Pose2d intakePosition1 = new Pose2d(10, TILE * 3 - 5.3,0);
     double intakePosition1Tangent = Math.toRadians(-330);
 
-    Pose2d intakePosition2A = new Pose2d(48, TILE * 3 - 6.375,0);
-    Pose2d intakePosition2B = new Pose2d(56, TILE * 3 - 6.675,0);
+    Pose2d intakePosition2A = new Pose2d(48, TILE * 3 - 5.3,0);
+    Pose2d intakePosition2B = new Pose2d(56, TILE * 3 - 5.3,0);
 
     double intakePosition2Tangent = Math.toRadians(0);
 
