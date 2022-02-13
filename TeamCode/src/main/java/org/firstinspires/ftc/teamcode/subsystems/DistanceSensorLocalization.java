@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import homeostasis.Filters.SISOKalmanFilter;
 
 import static org.firstinspires.ftc.teamcode.Utils.utils.AngleWrap;
+import static org.firstinspires.ftc.teamcode.Utils.utils.drawRobotBlue;
 import static org.firstinspires.ftc.teamcode.Utils.utils.fromPose2D;
 
 @Config
@@ -130,10 +131,10 @@ public class DistanceSensorLocalization implements subsystem{
 		//double y_field = -(TILE_SIZE * 3) + (y - leftDistanceFromEdge + leftDistanceFromCenter);
 
 
-		//Vector3D estimatedPose = new Vector3D(x_field, y_field, robotPose.getAngleRadians());
+		Vector3D estimatedPose = new Vector3D(x_field, robotPose.getY(), robotPose.getAngleRadians());
 		//plotVector(estimatedPose,"distance sensor pose estimate", Dashboard.packet);
 
-		//drawRobotBlue(estimatedPose, Dashboard.packet);
+		drawRobotBlue(estimatedPose, Dashboard.packet);
 
 		double xPoseEstimate = estimatorX.updateKalmanMeasurements(robotPose.getX(), x_field);
 		//double yPoseEstimate = estimatorY.updateKalmanMeasurements(robotPose.getY(), estimatedPose.getY());

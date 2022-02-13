@@ -29,7 +29,7 @@ public class RedCycleRR extends BaseAuto {
 
 	double cycleDistanceFromWallY = -TILE * 3 + 5.675;
 	public static Vector3D start = new Vector3D(TILE / 2.0, -TILE * 3 + 8.375, Math.toRadians(-90));
-	Pose2d depositPosition = new Pose2d(+ 2,-TILE * 2 + 2.5  ,Math.toRadians(-65));
+	Pose2d depositPosition = new Pose2d(+ 2,-TILE * 2 - 2.5  ,Math.toRadians(-65));
 	double depositTangent = Math.toRadians(120);
 
 	Pose2d depositPositionMid = new Pose2d(+ 2,-TILE * 2 + 5 ,Math.toRadians(-65));
@@ -44,7 +44,7 @@ public class RedCycleRR extends BaseAuto {
 	Pose2d intakePosition2A = new Pose2d(46, cycleDistanceFromWallY,0);
 	double intakePosition2Tangent = Math.toRadians(0);
 
-	Pose2d intakePosition2B = new Pose2d(48, cycleDistanceFromWallY,0);
+	Pose2d intakePosition2B = new Pose2d(52, cycleDistanceFromWallY,0);
 
 
 
@@ -170,7 +170,7 @@ public class RedCycleRR extends BaseAuto {
 
 			actions.add(new MutlipleAction(new action[] {
 					new TurnOnIntake(robot, false),
-					new Delay(600)
+					new Delay(300)
 			}));
 			actions.add(new TurnOffIntake(robot));
 

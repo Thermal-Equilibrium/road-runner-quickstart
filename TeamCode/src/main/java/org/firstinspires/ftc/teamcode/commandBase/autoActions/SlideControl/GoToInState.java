@@ -72,7 +72,7 @@ public class GoToInState implements action {
 				state = GOING_IN;
 				break;
 			case GOING_IN:
-				if (timer.milliseconds() > DEPOSIT_DURATION * 4) {
+				if (timer.milliseconds() > CommandDeposit2.GOING_IN_DURATION) {
 					state = IN;
 					timer.reset();
 				}

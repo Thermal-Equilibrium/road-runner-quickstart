@@ -25,22 +25,23 @@ import static org.firstinspires.ftc.teamcode.opmodes.FieldSide.ALLIANCE.RED;
 
 @Autonomous
 public class BlueCycleRR extends BaseAuto {
+    double cycleDistanceFromWallY = TILE * 3 - 4.675;
 
     public static Vector3D start = new Vector3D(TILE / 2.0, TILE * 3 - 8.375, Math.toRadians(90));
-    Pose2d depositPosition = new Pose2d(+ 2,TILE * 2 - 4 ,Math.toRadians(60));
+    Pose2d depositPosition = new Pose2d(+ 2,TILE * 2 + 3, Math.toRadians(65));
     double depositTangent = Math.toRadians(-120);
 
-    Pose2d depositPositionMid = new Pose2d(+ 2,TILE * 2 - 8 ,Math.toRadians(60));
+    Pose2d depositPositionMid = new Pose2d(+ 2,TILE * 2 - 1, Math.toRadians(65));
     double depositTangentMid = Math.toRadians(-120);
 
     Pose2d depositPositionLow = new Pose2d(-8,TILE * 2 - 5,Math.toRadians(85));
     double depositTangentLow = Math.toRadians(-120);
 
-    Pose2d intakePosition1 = new Pose2d(10, TILE * 3 - 5.3,0);
+    Pose2d intakePosition1 = new Pose2d(10, cycleDistanceFromWallY,0);
     double intakePosition1Tangent = Math.toRadians(-330);
 
-    Pose2d intakePosition2A = new Pose2d(48, TILE * 3 - 5.3,0);
-    Pose2d intakePosition2B = new Pose2d(56, TILE * 3 - 5.3,0);
+    Pose2d intakePosition2A = new Pose2d(46, cycleDistanceFromWallY,0);
+    Pose2d intakePosition2B = new Pose2d(49, cycleDistanceFromWallY,0);
 
     double intakePosition2Tangent = Math.toRadians(0);
 
@@ -163,12 +164,16 @@ public class BlueCycleRR extends BaseAuto {
                     new TurnOnIntake(robot, true ),
                     new Delay(2500)
             }));
-            //leaves warehouse outakes
-            actions.add(new MutlipleAction(new action[]{
-                    new FollowTrajectory(robot, exitWareHouse),
-                    new TurnOnIntake(robot, false )
+
+            actions.add(new MutlipleAction(new action[] {
+                    new TurnOnIntake(robot, false),
+                    new Delay(300)
             }));
             actions.add(new TurnOffIntake(robot));
+
+
+            //leaves warehouse outakes
+            actions.add(new FollowTrajectory(robot, exitWareHouse));
             //goes high position and deposit position
             actions.add(new GoToHighDeposit(robot));
             actions.add(new MutlipleAction(new action[] {
@@ -186,11 +191,8 @@ public class BlueCycleRR extends BaseAuto {
         //parks
         actions.add(new MutlipleAction(new action[] {
                 new FollowTrajectory(robot, goToIntake2A),
-                new TurnOnIntake(robot, true )
         }));
-        //Turns off intake
-        actions.add(new Delay(500));
-        actions.add(new TurnOffIntake(robot));
+
 
     }
 
