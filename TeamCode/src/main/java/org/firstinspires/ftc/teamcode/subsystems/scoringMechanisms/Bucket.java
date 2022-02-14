@@ -26,8 +26,8 @@ public class Bucket implements subsystem {
 
 	double lastPosition = 1000;
 
-	double IN = 0.7;
-	double OUT = 0.9;
+	double IN = 0.69;
+	double OUT = 1;
 
 	protected boolean checkSensor = true;
 

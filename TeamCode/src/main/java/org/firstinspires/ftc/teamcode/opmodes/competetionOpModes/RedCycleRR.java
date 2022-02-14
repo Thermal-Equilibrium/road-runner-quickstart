@@ -128,6 +128,7 @@ public class RedCycleRR extends BaseAuto {
 						}
 				));
 				actions.add(new NoSlideDeposit(robot));
+				actions.add(new DepositFreight(robot));
 				break;
 
 			case MIDDLE:
@@ -170,7 +171,7 @@ public class RedCycleRR extends BaseAuto {
 
 			actions.add(new MutlipleAction(new action[] {
 					new TurnOnIntake(robot, false),
-					new Delay(300)
+					new Delay(500)
 			}));
 			actions.add(new TurnOffIntake(robot));
 
