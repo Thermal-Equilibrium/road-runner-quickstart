@@ -11,7 +11,6 @@ import org.firstinspires.ftc.teamcode.templateOpModes.BaseAuto;
 
 import static org.firstinspires.ftc.teamcode.Utils.utils.fromPose2D;
 import static org.firstinspires.ftc.teamcode.opmodes.FieldSide.ALLIANCE.BLUE;
-import static org.firstinspires.ftc.teamcode.opmodes.FieldSide.ALLIANCE.RED;
 
 @Autonomous
 public class BlueDuckAutoRR extends BaseAuto {

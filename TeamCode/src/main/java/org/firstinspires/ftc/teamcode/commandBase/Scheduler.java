@@ -87,7 +87,6 @@ public class Scheduler {
 	 * update scheduler for teleop
 	 */
 	public void updateTeleop() {
-		updateRobot();
 		for (teleopAction action : teleopActionArrayList) {
 
 			if (action.shouldRun()) {
@@ -101,6 +100,7 @@ public class Scheduler {
 				}
 			}
 		}
+		updateRobot();
 	}
 
 	/**
