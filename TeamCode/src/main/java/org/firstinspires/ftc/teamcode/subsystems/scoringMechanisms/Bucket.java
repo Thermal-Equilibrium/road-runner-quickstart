@@ -72,9 +72,9 @@ public class Bucket implements subsystem {
 		} else {
 			setPosition(IN);
 		}
-		if (checkSensor) {
-			this.isFreightInBox = proximitySensor.getDistance(DistanceUnit.INCH) < minDistance;
-		}
+//		if (checkSensor) {
+//			this.isFreightInBox = proximitySensor.getDistance(DistanceUnit.INCH) < minDistance;
+//		}
 
 		previousState = state;
 
