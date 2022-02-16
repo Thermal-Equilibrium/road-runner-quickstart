@@ -103,6 +103,7 @@ public class Robot {
         duckDetection.init(hwmap);
         duckwheel.init(hwmap);
         retract.init(hwmap);
+        cappingDevice.init(hwmap);
         subsystems.add(bucketSys);
         subsystems.add(Intake);
         subsystems.add(Deposit);
@@ -110,6 +111,8 @@ public class Robot {
         subsystems.add(duckwheel);
         subsystems.add(distanceSensorLocalization);
         subsystems.add(retract);
+        subsystems.add(cappingDevice);
+
     }
 
     /**
