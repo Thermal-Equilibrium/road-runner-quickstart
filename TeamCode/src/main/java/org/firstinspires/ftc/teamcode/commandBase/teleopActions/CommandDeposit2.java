@@ -52,14 +52,9 @@ public class CommandDeposit2 implements teleopAction {
 
 	@Override
 	public void periodic() {
-		if (robot.cappingDevice.subsystemState().equals(Capping.cappingStates.RESTING)) {
-			runNormalSlides();
-		} else {
-			runSlidesCapping();
-		}
+		runNormalSlides();
 		robot.Deposit.setState(state);
 		robot.bucketSys.setState(state);
-
 	}
 
 	public void runSlidesCapping() {
