@@ -14,11 +14,11 @@ public class Capping implements subsystem {
 
 	protected cappingStates state = cappingStates.RESTING;
 
-	double restingPos = 0;
+	double restingPos = 1;
 	double initialExtension = restingPos;
-	double pickupPos = 0;
-	double aboveCapPos = 0;
-	double cappedPos = 0;
+	double pickupPos = .1;
+	double aboveCapPos = .5;
+	double cappedPos = .4;
 
 
 	@Override
