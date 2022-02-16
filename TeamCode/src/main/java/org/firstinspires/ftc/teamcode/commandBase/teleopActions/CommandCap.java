@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.commandBase.teleopActions;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.commandBase.teleopAction;
+import org.firstinspires.ftc.teamcode.gamepadEnhancements.ButtonPress;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 
 public class CommandCap implements teleopAction {
@@ -11,6 +12,8 @@ public class CommandCap implements teleopAction {
 
 	Gamepad gamepad1;
 	Gamepad gamepad2;
+
+	ButtonPress press = new ButtonPress();
 
 
 	public CommandCap(Robot robot, Gamepad gamepad1, Gamepad gamepad2) {
@@ -26,8 +29,8 @@ public class CommandCap implements teleopAction {
 
 	@Override
 	public void periodic() {
-
-		if (gamepad1.x) {
+		press.button(gamepad1.cross);
+		if (press.press()) {
 			robot.cappingDevice.incrementState();
 		}
 
