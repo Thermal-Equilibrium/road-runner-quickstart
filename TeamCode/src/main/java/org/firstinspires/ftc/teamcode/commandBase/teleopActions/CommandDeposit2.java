@@ -6,8 +6,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.commandBase.teleopAction;
 import org.firstinspires.ftc.teamcode.gamepadEnhancements.ButtonPress;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
+import org.firstinspires.ftc.teamcode.subsystems.scoringMechanisms.Capping;
 import org.firstinspires.ftc.teamcode.subsystems.scoringMechanisms.Deposit;
 
+import static org.firstinspires.ftc.teamcode.subsystems.scoringMechanisms.Deposit.depositStates.CAP_ABOVE_CAP;
+import static org.firstinspires.ftc.teamcode.subsystems.scoringMechanisms.Deposit.depositStates.CAP_CAPPED;
+import static org.firstinspires.ftc.teamcode.subsystems.scoringMechanisms.Deposit.depositStates.CAP_INITIAL_EXTENSION;
+import static org.firstinspires.ftc.teamcode.subsystems.scoringMechanisms.Deposit.depositStates.CAP_PICKUP;
 import static org.firstinspires.ftc.teamcode.subsystems.scoringMechanisms.Deposit.depositStates.COLLECTION;
 import static org.firstinspires.ftc.teamcode.subsystems.scoringMechanisms.Deposit.depositStates.GOING_IN;
 import static org.firstinspires.ftc.teamcode.subsystems.scoringMechanisms.Deposit.depositStates.IN;
@@ -47,8 +52,37 @@ public class CommandDeposit2 implements teleopAction {
 
 	@Override
 	public void periodic() {
+		if (robot.cappingDevice.subsystemState().equals(Capping.cappingStates.RESTING)) {
+			runNormalSlides();
+		} else {
+			runSlidesCapping();
+		}
+		robot.Deposit.setState(state);
+		robot.bucketSys.setState(state);
+
+	}
+
+	public void runSlidesCapping() {
+		switch (robot.cappingDevice.subsystemState()) {
+			case RESTING:
+				break;
+			case INITIAL_EXTENSION:
+				state = CAP_INITIAL_EXTENSION;
+				break;
+			case PICKUP:
+				state = CAP_PICKUP;
+				break;
+			case ABOVE_CAP:
+				state = CAP_ABOVE_CAP;
+				break;
+			case CAPPED:
+				state = CAP_CAPPED;
+				break;
+		}
+	}
 
 
+	public void runNormalSlides() {
 		if (gamepad1.dpad_right) robot.Deposit.v4b.LOW = robot.Deposit.v4b.LOW_1;
 		if (gamepad1.dpad_up) robot.Deposit.v4b.LOW = robot.Deposit.v4b.LOW_2;
 
@@ -92,10 +126,6 @@ public class CommandDeposit2 implements teleopAction {
 				}
 				break;
 		}
-
-		robot.Deposit.setState(state);
-		robot.bucketSys.setState(state);
-
 	}
 
 	protected void transitionToDeposit() {
@@ -162,7 +192,7 @@ public class CommandDeposit2 implements teleopAction {
 	}
 
 	public boolean lowButton() {
-		return gamepad1.cross;
+		return gamepad1.dpad_right || gamepad1.dpad_up;
 	}
 
 	public boolean activeDepositButton() {

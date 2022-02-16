@@ -66,6 +66,20 @@ public class Extension implements subsystem {
 			case DEPOSITING:
 				// theoretically nothing should change?
 				break;
+			case CAP_RESTING:
+				break;
+			case CAP_INITIAL_EXTENSION:
+				setPosition(HIGH);
+				break;
+			case CAP_PICKUP:
+				setPosition(HIGH);
+				break;
+			case CAP_ABOVE_CAP:
+				setPosition(HIGH);
+				break;
+			case CAP_CAPPED:
+				setPosition(HIGH);
+				break;
 		}
 		timer.reset();
 

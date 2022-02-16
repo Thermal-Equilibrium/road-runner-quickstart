@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.teamcode.Geometry.Vector3D;
 import org.firstinspires.ftc.teamcode.subsystems.scoringMechanisms.Bucket;
+import org.firstinspires.ftc.teamcode.subsystems.scoringMechanisms.Capping;
 import org.firstinspires.ftc.teamcode.subsystems.scoringMechanisms.Deposit;
 import org.firstinspires.ftc.teamcode.subsystems.scoringMechanisms.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.scoringMechanisms.TapeTurret;
@@ -35,6 +36,8 @@ public class Robot {
     public DuckWheel duckwheel = new DuckWheel();
 
     public DeadwheelRetract retract = new DeadwheelRetract();
+
+    public Capping cappingDevice = new Capping();
 
 
     public DistanceSensorLocalization distanceSensorLocalization
@@ -75,6 +78,7 @@ public class Robot {
         duckDetection.init(hwmap);
         duckwheel.init(hwmap);
         retract.init(hwmap);
+        cappingDevice.init(hwmap);
         subsystems.add(bucketSys);
         subsystems.add(Intake);
         subsystems.add(Deposit);
@@ -82,7 +86,7 @@ public class Robot {
         subsystems.add(duckwheel);
         subsystems.add(distanceSensorLocalization);
         subsystems.add(retract);
-
+        subsystems.add(cappingDevice);
     }
 
     /**

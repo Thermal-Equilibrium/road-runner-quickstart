@@ -33,6 +33,7 @@ public class Slides implements subsystem {
 	protected double LOW = 60;
 	protected double MID = 120;
 	protected double HIGH = 260; // tune this imo
+	protected double CAP_DOWN = HIGH - 40;
 
 	protected double referencePosition = 0;
 
@@ -100,6 +101,20 @@ public class Slides implements subsystem {
 			case AT_LOWEST:
 				break;
 
+			case CAP_RESTING:
+				break;
+			case CAP_INITIAL_EXTENSION:
+				referencePosition = IN;
+				break;
+			case CAP_PICKUP:
+				referencePosition = LOW;
+				break;
+			case CAP_ABOVE_CAP:
+				referencePosition = HIGH;
+				break;
+			case CAP_CAPPED:
+				referencePosition = CAP_DOWN;
+				break;
 		}
 		System.out.println("slide reference position is " + referencePosition);
 		slideController.setScaling(14 / batterVoltageSensor.getVoltage());
