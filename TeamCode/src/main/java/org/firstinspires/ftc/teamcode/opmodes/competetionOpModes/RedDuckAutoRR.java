@@ -8,6 +8,10 @@ import org.firstinspires.ftc.teamcode.Geometry.Vector3D;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.DrivetrainControl.FollowTrajectory;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.Ducks.SetDuckWheel;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.Misc.Delay;
+import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.DepositFreight;
+import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.GoToHighDeposit;
+import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.GoToInState;
+import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.GoToMidDeposit;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.NoSlideDeposit;
 import org.firstinspires.ftc.teamcode.opmodes.FieldSide;
 import org.firstinspires.ftc.teamcode.subsystems.DuckWheel;
@@ -21,7 +25,7 @@ public class RedDuckAutoRR extends BaseAuto {
 
 	Pose2d startPosition = new Pose2d(-TILE * 1.5, -TILE * 3 + 8.375,  Math.toRadians(-90));
 
-	Pose2d depositPose = new Pose2d(-TILE, -2 * TILE, Math.toRadians(60 + 180));
+	Pose2d depositPose = new Pose2d(-TILE + 5, -2 * TILE + 3, Math.toRadians(60 + 180));
 	double depositTangent = Math.toRadians(30.0);
 
 	Pose2d carouselPose = new Pose2d(-TILE * 2 - 11, -TILE * 3 + 15, Math.toRadians(270));
@@ -62,7 +66,25 @@ public class RedDuckAutoRR extends BaseAuto {
 
 		// makes sure that the bucket stays out after auto init
 		actions.add(new NoSlideDeposit(robot));
+
+
+		switch (TSEPosition) {
+			case LEFT:
+				actions.add(new NoSlideDeposit(robot));
+				break;
+			case MIDDLE:
+				actions.add(new GoToMidDeposit(robot));
+				break;
+			case RIGHT:
+				actions.add(new GoToHighDeposit(robot));
+				break;
+		}
+
 		actions.add(new FollowTrajectory(robot, goToDeposit));
+
+		actions.add(new DepositFreight(robot));
+
+		actions.add(new GoToInState(robot));
 
 		actions.add(new FollowTrajectory(robot, goToCarousel));
 

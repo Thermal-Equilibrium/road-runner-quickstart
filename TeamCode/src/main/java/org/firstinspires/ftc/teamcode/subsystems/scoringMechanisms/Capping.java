@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.subsystems.scoringMechanisms;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.Filter.LowPassFilter;
 import org.firstinspires.ftc.teamcode.subsystems.subsystem;
 
 public class Capping implements subsystem {
@@ -14,11 +15,15 @@ public class Capping implements subsystem {
 
 	protected cappingStates state = cappingStates.RESTING;
 
+	protected LowPassFilter filter = new LowPassFilter(0.59);
+
 	double restingPos = 1;
 	double initialExtension = restingPos;
-	double pickupPos = .1;
-	double aboveCapPos = .5;
-	double cappedPos = .35;
+	double pickUpPosLower = 0.11;
+	double pickupPos = .2;
+
+	double aboveCapPos = .53;
+	double cappedPos = 0.35;
 
 
 	@Override
@@ -39,6 +44,9 @@ public class Capping implements subsystem {
 				break;
 			case INITIAL_EXTENSION:
 				setServo(initialExtension);
+				break;
+			case PICKUP_LOWER:
+				setServo(pickUpPosLower);
 				break;
 			case PICKUP:
 				setServo(pickupPos);
@@ -70,15 +78,18 @@ public class Capping implements subsystem {
 	}
 
 	protected void setServo(double position) {
-		if (position != previousServoPos) {
-			arm.setPosition(position);
+		double nu = filter.updateEstimate(position);
+
+		if (nu != previousServoPos) {
+			arm.setPosition(nu);
 		}
-		previousServoPos = position;
+		previousServoPos = nu;
 	}
 
 	public enum cappingStates {
 		RESTING,
 		INITIAL_EXTENSION,
+		PICKUP_LOWER,
 		PICKUP,
 		ABOVE_CAP,
 		CAPPED;
@@ -88,6 +99,8 @@ public class Capping implements subsystem {
 				case RESTING:
 					return INITIAL_EXTENSION;
 				case INITIAL_EXTENSION:
+					return PICKUP_LOWER;
+				case PICKUP_LOWER:
 					return PICKUP;
 				case PICKUP:
 					return ABOVE_CAP;
