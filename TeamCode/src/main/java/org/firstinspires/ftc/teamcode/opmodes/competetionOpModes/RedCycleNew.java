@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmodes.competetionOpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Geometry.Vector3D;
 import org.firstinspires.ftc.teamcode.commandBase.action;
@@ -19,7 +20,7 @@ import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.NoSli
 import org.firstinspires.ftc.teamcode.commandBase.teleopActions.SetYPosition;
 import org.firstinspires.ftc.teamcode.templateOpModes.BaseAuto;
 
-@Autonomous
+@Disabled
 public class RedCycleNew extends BaseAuto {
 
 	Vector3D start = new Vector3D(TILE / 2.0, -TILE * 3 + 8.375, Math.toRadians(-90));

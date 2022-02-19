@@ -17,6 +17,8 @@ import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.GoToH
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.GoToInState;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.GoToMidDeposit;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.NoSlideDeposit;
+import org.firstinspires.ftc.teamcode.drive.DriveConstants;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.opmodes.FieldSide;
 import org.firstinspires.ftc.teamcode.templateOpModes.BaseAuto;
 
@@ -27,16 +29,16 @@ import static org.firstinspires.ftc.teamcode.opmodes.FieldSide.ALLIANCE.RED;
 @Autonomous
 public class RedCycleRR extends BaseAuto {
 
-	double cycleDistanceFromWallY = -TILE * 3 + 5.675;
+	double cycleDistanceFromWallY = -TILE * 3 + 6;
 	public static Vector3D start = new Vector3D(TILE / 2.0, -TILE * 3 + 8.375, Math.toRadians(-90));
-	Pose2d depositPosition = new Pose2d(+ 2,-TILE * 2 - 2.5  ,Math.toRadians(-65));
+	Pose2d depositPosition = new Pose2d(+ 2,-TILE * 2  ,Math.toRadians(-65));
 	double depositTangent = Math.toRadians(120);
 
 	Pose2d depositPositionMid = new Pose2d(+ 2,-TILE * 2 + 3 ,Math.toRadians(-65));
 	double depositTangentMid = Math.toRadians(120);
 
-	Pose2d depositPositionLow = new Pose2d(-8,-TILE * 2 + 5,Math.toRadians(-85));
-	double depositTangentLow = Math.toRadians(120);
+	Pose2d depositPositionLow = new Pose2d(-8,-TILE * 2 + 6.5,Math.toRadians(-85));
+	double depositTangentLow = Math.toRadians(90);
 
 	Pose2d intakePosition1 = new Pose2d(10, cycleDistanceFromWallY,0);
 	double intakePosition1Tangent = Math.toRadians(330);
@@ -84,7 +86,8 @@ public class RedCycleRR extends BaseAuto {
 				.build();
 
 		goToDepositLow = roadrunnerDrive.trajectoryBuilder(start.toPose2d(), true)
-				.splineToLinearHeading(depositPositionLow, depositTangentLow)
+				.lineToSplineHeading(depositPositionLow, SampleMecanumDrive.getVelocityConstraint(30, Math.toRadians(100), DriveConstants.TRACK_WIDTH),
+						SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
 				.build();
 
 		goToIntake = roadrunnerDrive.trajectoryBuilder(goToDeposit1.end(),false)

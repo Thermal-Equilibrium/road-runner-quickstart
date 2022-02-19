@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmodes.competetionOpModes;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Geometry.Vector3D;
 import org.firstinspires.ftc.teamcode.commandBase.action;
@@ -23,7 +24,7 @@ import org.firstinspires.ftc.teamcode.templateOpModes.BaseAuto;
 import static org.firstinspires.ftc.teamcode.opmodes.FieldSide.ALLIANCE.BLUE;
 import static org.firstinspires.ftc.teamcode.opmodes.FieldSide.ALLIANCE.RED;
 
-@Autonomous
+@Disabled
 public class Blue3CycleAuto extends BaseAuto {
 	double cycleDistanceFromWallY = TILE * 3 - 4.675;
 

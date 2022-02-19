@@ -11,7 +11,7 @@ public class NormalRobotRelative extends FieldRelativeDrive {
 
 	@Override
 	public void periodic() {
-		robot.driveTrain.robotRelative(getMotorPowers());
+		robot.driveTrain.robotRelativeRR(getMotorPowers());
 	}
 
 }

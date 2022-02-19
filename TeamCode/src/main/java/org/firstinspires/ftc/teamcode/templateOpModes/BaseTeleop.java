@@ -32,20 +32,22 @@ public class BaseTeleop extends LinearOpMode {
 
 		switch (alliance) {
 			case RED:
-				robot.setRobotPose(new Vector3D(0,0,Math.toRadians(90)));
+				robot.setRobotPose(new Vector3D(0,0,Math.toRadians(90 + 180)));
 				break;
 			case BLUE:
-				robot.setRobotPose(new Vector3D(0,0,Math.toRadians(90)));
+				robot.setRobotPose(new Vector3D(0,0,-Math.toRadians(180 + 90)));
 				break;
 		}
 
-		robot.retract.retract();
 
 
 		addActions();
 		scheduler = new Scheduler(robot.getSubsystems(), actions, hardwareMap);
 
 		waitForStart();
+
+		robot.retract.retract();
+
 		while (opModeIsActive()) {
 			scheduler.updateTeleop();
 		}

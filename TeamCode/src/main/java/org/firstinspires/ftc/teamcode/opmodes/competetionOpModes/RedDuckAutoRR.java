@@ -4,7 +4,6 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.Geometry.Vector3D;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.DrivetrainControl.FollowTrajectory;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.Ducks.SetDuckWheel;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.Misc.Delay;
@@ -25,8 +24,14 @@ public class RedDuckAutoRR extends BaseAuto {
 
 	Pose2d startPosition = new Pose2d(-TILE * 1.5, -TILE * 3 + 8.375,  Math.toRadians(-90));
 
-	Pose2d depositPose = new Pose2d(-TILE + 5, -2 * TILE + 3, Math.toRadians(60 + 180));
+	Pose2d middleDeposit = new Pose2d(-TILE + 1, -2 * TILE + 3, Math.toRadians(60 + 180));
 	double depositTangent = Math.toRadians(30.0);
+	Pose2d highDeposit = new Pose2d(-TILE + 1, -2 * TILE + 3, Math.toRadians(60 + 180));
+
+	Pose2d lowDeposit = new Pose2d(-TILE - 2, -TILE - 12, Math.toRadians(-180+ 40));
+
+	double lowTangent = Math.toRadians(30.0);
+
 
 	Pose2d carouselPose = new Pose2d(-TILE * 2 - 11, -TILE * 3 + 15, Math.toRadians(270));
 	double carouselTangent = Math.toRadians(180);
@@ -34,22 +39,32 @@ public class RedDuckAutoRR extends BaseAuto {
 	Pose2d park = new Pose2d(-TILE * 2.5, -TILE * 1.5,Math.toRadians(0));
 	double parkTangent = Math.toRadians(180.0);
 
-	Trajectory goToDeposit;
+	Trajectory goToMiddleDeposit;
+	Trajectory goToHighDeposit;
+	Trajectory goToLowDeposit;
+
+
 	Trajectory goToCarousel;
 	Trajectory goToPark;
 
 	@Override
 	public void setStartingPosition() {
-		goToDeposit = roadrunnerDrive.trajectoryBuilder(startPosition, true)
-				.splineToSplineHeading(depositPose, depositTangent)
+		goToMiddleDeposit = roadrunnerDrive.trajectoryBuilder(startPosition, true)
+				.splineToSplineHeading(middleDeposit, depositTangent)
+				.build();
+		goToLowDeposit = roadrunnerDrive.trajectoryBuilder(startPosition, true)
+				.lineToSplineHeading(lowDeposit)
+				.build();
+		goToHighDeposit = roadrunnerDrive.trajectoryBuilder(startPosition, true)
+				.splineToSplineHeading(highDeposit, depositTangent)
 				.build();
 
-		goToCarousel = roadrunnerDrive.trajectoryBuilder(goToDeposit.end(), false)
+		goToCarousel = roadrunnerDrive.trajectoryBuilder(goToMiddleDeposit.end(), false)
 				.splineToSplineHeading(carouselPose, carouselTangent)
 				.build();
 
 		goToPark = roadrunnerDrive.trajectoryBuilder(goToCarousel.end(),true)
-				.splineToLinearHeading(park,parkTangent)
+				.lineToSplineHeading(park)
 				.build();
 
 
@@ -71,16 +86,21 @@ public class RedDuckAutoRR extends BaseAuto {
 		switch (TSEPosition) {
 			case LEFT:
 				actions.add(new NoSlideDeposit(robot));
+				actions.add(new FollowTrajectory(robot, goToLowDeposit));
+
 				break;
 			case MIDDLE:
 				actions.add(new GoToMidDeposit(robot));
+				actions.add(new FollowTrajectory(robot, goToMiddleDeposit));
+
 				break;
 			case RIGHT:
 				actions.add(new GoToHighDeposit(robot));
+				actions.add(new FollowTrajectory(robot, goToHighDeposit));
+
 				break;
 		}
 
-		actions.add(new FollowTrajectory(robot, goToDeposit));
 
 		actions.add(new DepositFreight(robot));
 

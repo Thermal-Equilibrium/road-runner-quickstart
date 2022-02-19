@@ -17,6 +17,8 @@ import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.GoToH
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.GoToInState;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.GoToMidDeposit;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.NoSlideDeposit;
+import org.firstinspires.ftc.teamcode.drive.DriveConstants;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.opmodes.FieldSide;
 import org.firstinspires.ftc.teamcode.templateOpModes.BaseAuto;
 
@@ -81,7 +83,8 @@ public class BlueCycleRR extends BaseAuto {
                 .build();
 
         goToDepositLow = roadrunnerDrive.trajectoryBuilder(start.toPose2d(), true)
-                .splineToLinearHeading(depositPositionLow, depositTangentLow)
+                .lineToSplineHeading(depositPositionLow, SampleMecanumDrive.getVelocityConstraint(30, Math.toRadians(100), DriveConstants.TRACK_WIDTH),
+                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
                 .build();
 
         goToIntake = roadrunnerDrive.trajectoryBuilder(goToDeposit1.end(),false)

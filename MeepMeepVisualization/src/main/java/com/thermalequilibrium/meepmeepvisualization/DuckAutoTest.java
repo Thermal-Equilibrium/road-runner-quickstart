@@ -11,11 +11,11 @@ public class DuckAutoTest {
 		MeepMeep meepMeep = new MeepMeep(800);
 		double TILE = 24;
 
-		Pose2d depositPose = new Pose2d(-TILE, -2 * TILE, Math.toRadians(60 + 180));
+		Pose2d depositPose = new Pose2d(-TILE - 2, -TILE - 12, Math.toRadians(-180+ 40));
 		double depositTangent = Math.toRadians(30);
 
 		Pose2d carouselPose = new Pose2d(-TILE * 2 - 5, -TILE * 3 + 15, Math.toRadians(270));
-		double carouselTangent = Math.toRadians(180);
+		double carouselTangent = Math.toRadians(30);
 
 		Pose2d park = new Pose2d(-TILE * 2.5, -TILE * 1.5,Math.toRadians(0));
 		double parkTangent = Math.toRadians(180);
@@ -28,10 +28,10 @@ public class DuckAutoTest {
 						drive.trajectorySequenceBuilder(new Pose2d(-TILE * 1.5, -TILE * 3 + 8.375,  Math.toRadians(-90)))
 								.setReversed(true)
 								.splineToSplineHeading(depositPose, depositTangent)
-								.setReversed(false)
-								.splineToSplineHeading(carouselPose,carouselTangent)
 								.setReversed(true)
-								.splineToLinearHeading(park, parkTangent)
+								.lineToLinearHeading(carouselPose)
+								.setReversed(true)
+								.lineToSplineHeading(park)
 								.build()
 				);
 

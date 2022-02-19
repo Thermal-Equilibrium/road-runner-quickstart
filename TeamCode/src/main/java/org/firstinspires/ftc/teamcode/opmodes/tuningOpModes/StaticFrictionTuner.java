@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.opmodes.tuningOpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.DrivetrainControl.FindStaticFrictionForward;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.DrivetrainControl.FindStaticFrictionTurn;
 import org.firstinspires.ftc.teamcode.templateOpModes.BaseAuto;
 
-@Autonomous
+@Disabled
 public class StaticFrictionTuner extends BaseAuto {
 
 	@Override

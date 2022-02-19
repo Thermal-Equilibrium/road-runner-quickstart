@@ -132,6 +132,19 @@ public class Roadrunner implements subsystem {
         robotRelative(new Vector3D(rotatedPowers.getX(),rotatedPowers.getY(),powers.getAngleRadians()));
     }
 
+
+    public void robotRelativeRR(Vector3D powers) {
+        Vector2d input = new Vector2d(
+                powers.getX(),
+                powers.getY()
+        );
+        mecanumDrive.setWeightedDrivePower(new Pose2d(
+                input.getX(),
+                -input.getY(),
+                -powers.getAngleRadians()
+        ));
+    }
+
     public void fieldRelative(Vector3D powers) {
         Vector2d input = new Vector2d(
                 powers.getX(),
