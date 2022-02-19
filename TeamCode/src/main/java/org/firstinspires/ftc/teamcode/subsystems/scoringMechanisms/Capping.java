@@ -18,7 +18,7 @@ public class Capping implements subsystem {
 	double initialExtension = restingPos;
 	double pickupPos = .1;
 	double aboveCapPos = .5;
-	double cappedPos = .4;
+	double cappedPos = .35;
 
 
 	@Override
