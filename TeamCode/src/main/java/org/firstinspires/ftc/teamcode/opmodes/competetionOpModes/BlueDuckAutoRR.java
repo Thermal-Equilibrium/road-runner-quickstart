@@ -61,7 +61,7 @@ public class BlueDuckAutoRR extends BaseAuto {
                 .build();
 
         goToCarousel = roadrunnerDrive.trajectoryBuilder(goToMiddleDeposit.end(), false)
-                .splineToSplineHeading(carouselPose, carouselTangent)
+                .lineToSplineHeading(carouselPose)
                 .build();
 
         goToPark = roadrunnerDrive.trajectoryBuilder(goToCarousel.end(),true)
