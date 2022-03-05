@@ -16,6 +16,7 @@ public class DuckAutoTest {
 
 		Pose2d carouselPose = new Pose2d(-TILE * 2 - 5, -TILE * 3 + 15, Math.toRadians(270));
 		double carouselTangent = Math.toRadians(30);
+		Pose2d carouselPoseblu = new Pose2d(-TILE * 2 - 5, -TILE * 3 + 15, Math.toRadians(180));
 
 		Pose2d park = new Pose2d(-TILE * 2.5, -TILE * 1.5,Math.toRadians(0));
 		double parkTangent = Math.toRadians(180);
@@ -43,9 +44,9 @@ public class DuckAutoTest {
 								.setReversed(true)
 								.splineToSplineHeading(reflect(depositPose), -depositTangent)
 								.setReversed(false)
-								.splineToSplineHeading(reflect(carouselPose),-carouselTangent)
+								.lineToLinearHeading(reflect(carouselPoseblu))
 								.setReversed(true)
-								.splineToLinearHeading(reflect(park), -parkTangent)
+								.lineToLinearHeading(reflect(park))
 								.build()
 				);
 		meepMeep.setBackground(MeepMeep.Background.FIELD_FREIGHTFRENZY_ADI_DARK)

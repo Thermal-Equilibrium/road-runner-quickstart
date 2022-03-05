@@ -21,6 +21,7 @@ import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.opmodes.FieldSide;
 import org.firstinspires.ftc.teamcode.templateOpModes.BaseAuto;
+import org.firstinspires.ftc.teamcode.vision.TSEContourPipeline;
 
 import static org.firstinspires.ftc.teamcode.opmodes.FieldSide.ALLIANCE.BLUE;
 import static org.firstinspires.ftc.teamcode.opmodes.FieldSide.ALLIANCE.RED;
@@ -31,7 +32,7 @@ public class RedCycleRR extends BaseAuto {
 
 	double cycleDistanceFromWallY = -TILE * 3 + 6;
 	public static Vector3D start = new Vector3D(TILE / 2.0, -TILE * 3 + 8.375, Math.toRadians(-90));
-	Pose2d depositPosition = new Pose2d(+ 2,-TILE * 2  ,Math.toRadians(-65));
+	Pose2d depositPosition = new Pose2d(+ 0,-TILE * 2  ,Math.toRadians(-65));
 	double depositTangent = Math.toRadians(120);
 
 	Pose2d depositPositionMid = new Pose2d(+ 2,-TILE * 2 + 3 ,Math.toRadians(-65));
@@ -43,10 +44,10 @@ public class RedCycleRR extends BaseAuto {
 	Pose2d intakePosition1 = new Pose2d(10, cycleDistanceFromWallY,0);
 	double intakePosition1Tangent = Math.toRadians(330);
 
-	Pose2d intakePosition2A = new Pose2d(46, cycleDistanceFromWallY,0);
+	Pose2d intakePosition2A = new Pose2d(46 - 1, cycleDistanceFromWallY,0);
 	double intakePosition2Tangent = Math.toRadians(0);
 
-	Pose2d intakePosition2B = new Pose2d(52, cycleDistanceFromWallY,0);
+	Pose2d intakePosition2B = new Pose2d(52 - 3 , cycleDistanceFromWallY,Math.toRadians(1));
 
 
 
@@ -94,10 +95,12 @@ public class RedCycleRR extends BaseAuto {
 				.splineToLinearHeading(intakePosition1, intakePosition1Tangent).build();
 
 		goToIntake2A = roadrunnerDrive.trajectoryBuilder(goToIntake.end(),false)
-				.splineToSplineHeading(intakePosition2A, intakePosition2Tangent).build();
+				.splineToSplineHeading(intakePosition2A, intakePosition2Tangent,SampleMecanumDrive.getVelocityConstraint(80, Math.toRadians(80), DriveConstants.TRACK_WIDTH),
+						SampleMecanumDrive.getAccelerationConstraint(50)).build();
 
 		goToIntake2B = roadrunnerDrive.trajectoryBuilder(goToIntake.end(),false)
-				.splineToSplineHeading(intakePosition2B, intakePosition2Tangent).build();
+				.splineToSplineHeading(intakePosition2B, intakePosition2Tangent,SampleMecanumDrive.getVelocityConstraint(80, Math.toRadians(80), DriveConstants.TRACK_WIDTH),
+						SampleMecanumDrive.getAccelerationConstraint(50)).build();
 
 
 		exitWareHouse = roadrunnerDrive.trajectoryBuilder(goToIntake2A.end(), true)
@@ -108,8 +111,7 @@ public class RedCycleRR extends BaseAuto {
 				.splineToLinearHeading(depositPosition,cycleEndTangent)
 				.build();
 
-
-		intake2Options = new Trajectory[]{goToIntake2A, goToIntake2B};
+		intake2Options = new Trajectory[]{goToIntake2A, goToIntake2B,goToIntake2B};
 	}
 
 	@Override
@@ -119,6 +121,8 @@ public class RedCycleRR extends BaseAuto {
 
 	@Override
 	public void addActions() {
+
+		TSEPosition = TSEContourPipeline.position.RIGHT;
 
 		// this makes sure the robot starts with the bucket all the way out instead of flipping back
 		actions.add(new NoSlideDeposit(robot));
@@ -145,10 +149,10 @@ public class RedCycleRR extends BaseAuto {
 				break;
 
 			case RIGHT:
+				actions.add(new GoToHighDeposit(robot));
 				actions.add(new MutlipleAction(
 						new action[] {
 								new FollowTrajectory(robot, goToDepositHigh),
-								new GoToHighDeposit(robot)
 						}
 				));
 				actions.add(new DepositFreight(robot));
@@ -157,7 +161,6 @@ public class RedCycleRR extends BaseAuto {
 
 			actions.add(new DepositFreight(robot));
 			actions.add(new DeployIntake(robot));
-			actions.add(new Delay(250));
 
 		for (int i = 0; i < 2; i ++) {
 			//agaisnt wall slides in
@@ -169,7 +172,7 @@ public class RedCycleRR extends BaseAuto {
 			actions.add(new MutlipleAction(new action[] {
 					new FollowTrajectory(robot, intake2Options[i]),
 					new TurnOnIntake(robot, true ),
-					new Delay(2500)
+					new Delay(2300)
 			}));
 
 			actions.add(new MutlipleAction(new action[] {
@@ -187,7 +190,7 @@ public class RedCycleRR extends BaseAuto {
 					new FollowTrajectory(robot, goToDepositCycle),
 			}));
 			actions.add(new DepositFreight(robot));
-			actions.add(new Delay(250));
+			actions.add(new Delay(180)); // might need to be higher
 		}
 
 			//agaisnt wall

@@ -12,6 +12,8 @@ import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.GoToH
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.GoToInState;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.GoToMidDeposit;
 import org.firstinspires.ftc.teamcode.commandBase.autoActions.SlideControl.NoSlideDeposit;
+import org.firstinspires.ftc.teamcode.drive.DriveConstants;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.opmodes.FieldSide;
 import org.firstinspires.ftc.teamcode.subsystems.DuckWheel;
 import org.firstinspires.ftc.teamcode.templateOpModes.BaseAuto;
@@ -33,10 +35,10 @@ public class RedDuckAutoRR extends BaseAuto {
 	double lowTangent = Math.toRadians(30.0);
 
 
-	Pose2d carouselPose = new Pose2d(-TILE * 2 - 11, -TILE * 3 + 15, Math.toRadians(270));
+	Pose2d carouselPose = new Pose2d(-TILE * 2 - 12.5, -TILE * 3 + 15, Math.toRadians(270));
 	double carouselTangent = Math.toRadians(180);
 
-	Pose2d park = new Pose2d(-TILE * 2.5, -TILE * 1.5,Math.toRadians(0));
+	Pose2d park = new Pose2d(-TILE * 2.5 - 2, -TILE * 1.5,Math.toRadians(0));
 	double parkTangent = Math.toRadians(180.0);
 
 	Trajectory goToMiddleDeposit;
@@ -60,7 +62,8 @@ public class RedDuckAutoRR extends BaseAuto {
 				.build();
 
 		goToCarousel = roadrunnerDrive.trajectoryBuilder(goToMiddleDeposit.end(), false)
-				.splineToSplineHeading(carouselPose, carouselTangent)
+				.lineToSplineHeading(carouselPose, SampleMecanumDrive.getVelocityConstraint(30, Math.toRadians(100), DriveConstants.TRACK_WIDTH),
+						SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
 				.build();
 
 		goToPark = roadrunnerDrive.trajectoryBuilder(goToCarousel.end(),true)
@@ -81,6 +84,8 @@ public class RedDuckAutoRR extends BaseAuto {
 
 		// makes sure that the bucket stays out after auto init
 		actions.add(new NoSlideDeposit(robot));
+
+		actions.add(new Delay(3000));
 
 
 		switch (TSEPosition) {

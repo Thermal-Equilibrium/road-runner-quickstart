@@ -107,7 +107,8 @@ public class DistanceSensorLocalization implements subsystem{
 
 	@RequiresApi(api = Build.VERSION_CODES.N)
 	public void calculatePositions() {
-		System.out.println("current time for scheduling is " + timer.milliseconds());
+		if (true) return;
+ 		System.out.println("current time for scheduling is " + timer.milliseconds());
 		double velocityMagnitude = fromPose2D(odom.getPoseVelocity()).distanceToPose(new Vector3D());
 		Dashboard.packet.put("velocity magnitude", velocityMagnitude);
 		Vector3D robotPose = odom.subsystemState();
